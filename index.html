@@ -322,54 +322,58 @@ async function logout(){
 
 // INIT APP
 async function initApp(){
+  if(appInitialized)return;
   appInitialized=true;
   document.getElementById('auth-page').style.display='none';
   document.getElementById('app').style.display='block';
 
-  // Show loading
   const listEl=document.getElementById('list');
   listEl.style.display='block';
   listEl.innerHTML='<div class="loading"><div class="spinner"></div>Chargement des fiches...</div>';
   document.getElementById('detail').style.display='none';
 
+  // Load profile
   try{
-    // Load profile with timeout
-    const timeout = (ms) => new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')),ms));
-    const fetchWithTimeout = (promise) => Promise.race([promise, timeout(10000)]);
+    const{data:p,error:pe}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
+    console.log('Profile loaded:',p,'Error:',pe);
+    if(p){profile=p}
+    else{profile={display_name:user.user_metadata?.full_name||user.user_metadata?.name||user.email?.split('@')[0]||'Utilisateur',role:'Autre',theme_color:'#2a4d8f'}}
+  }catch(e){
+    console.error('Profile error:',e);
+    profile={display_name:user.email?.split('@')[0]||'Utilisateur',role:'Autre',theme_color:'#2a4d8f'};
+  }
+  applyTheme(profile.theme_color||'#2a4d8f');
+  document.getElementById('user-name').textContent=profile.display_name||'Utilisateur';
+  document.getElementById('user-role').textContent=profile.role||'';
+  document.getElementById('user-avatar').textContent=(profile.display_name||'U').charAt(0).toUpperCase();
 
-    const{data:p}=await fetchWithTimeout(sb.from('profiles').select('*').eq('id',user.id).maybeSingle());
-    if(p){
-      profile=p;
-      sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',user.id).then(()=>{});
-    } else {
-      profile={display_name:user.user_metadata?.full_name||user.user_metadata?.name||user.email.split('@')[0],role:'Autre',theme_color:'#2a4d8f'};
-    }
-    applyTheme(profile.theme_color||'#2a4d8f');
-    document.getElementById('user-name').textContent=profile.display_name||user.email;
-    document.getElementById('user-role').textContent=profile.role||'';
-    document.getElementById('user-avatar').textContent=(profile.display_name||user.email).charAt(0).toUpperCase();
+  // Update last login (non-blocking)
+  sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',user.id).then(()=>{});
 
-    // Load cancers
+  // Load cancers
+  try{
     const{data:c,error:ce}=await sb.from('cancers').select('*,cancer_categories(name)').order('display_order');
-    if(ce)console.error('Erreur cancers:',ce);
+    console.log('Cancers loaded:',c?.length,'Error:',ce);
     cancers=c||[];
+  }catch(e){console.error('Cancers error:',e);cancers=[]}
 
-    // Load all sections
+  // Load sections
+  try{
     const{data:s,error:se}=await sb.from('cancer_sections').select('*').order('display_order');
-    if(se)console.error('Erreur sections:',se);
+    console.log('Sections loaded:',s?.length,'Error:',se);
     sections={};
     (s||[]).forEach(sec=>{if(!sections[sec.cancer_id])sections[sec.cancer_id]=[];sections[sec.cancer_id].push(sec)});
+  }catch(e){console.error('Sections error:',e);sections={}}
 
-    // Load annotations
+  // Load annotations
+  try{
     const{data:a,error:ae}=await sb.from('annotations').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
-    if(ae)console.error('Erreur annotations:',ae);
+    console.log('Annotations loaded:',a?.length,'Error:',ae);
     annotations=a||[];
+  }catch(e){console.error('Annotations error:',e);annotations=[]}
 
-    renderListView();
-  } catch(e){
-    console.error('Erreur initApp:',e);
-    listEl.innerHTML='<div class="loading" style="color:#dc2626">Erreur de chargement. <button onclick="initApp()" style="margin-top:10px;padding:8px 16px;border-radius:6px;border:none;background:var(--theme);color:#fff;cursor:pointer">Réessayer</button></div>';
-  }
+  console.log('InitApp complete. Cancers:',cancers.length,'Sections keys:',Object.keys(sections));
+  renderListView();
 }
 
 function applyTheme(color){
