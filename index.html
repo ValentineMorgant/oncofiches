@@ -246,8 +246,7 @@ const sb=supabase.createClient(SUPA_URL,SUPA_KEY,{
     persistSession:true,
     autoRefreshToken:true,
     detectSessionInUrl:true,
-    storageKey:'oncofiches-auth',
-    flowType:'pkce'
+    storageKey:'oncofiches-auth'
   }
 });
 
@@ -551,44 +550,65 @@ async function delAnn(id){
 // START
 console.log('OncoFiches starting...');
 
+// Try to restore session from localStorage manually
 async function boot(){
-  console.log('Boot: checking session...');
-  try{
-    // getSession with 5s timeout to avoid infinite hang
-    const sessionPromise = sb.auth.getSession();
-    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve({data:{session:null},error:'timeout'}), 5000));
-    const{data,error} = await Promise.race([sessionPromise, timeoutPromise]);
-    
-    console.log('getSession:','session=',!!data?.session,'error=',error);
-    
-    if(data?.session?.user){
-      user=data.session.user;
-      console.log('Session found for:',user.email);
-      if(!appInitialized){appInitialized=true;await initApp()}
-      return;
-    }
-    if(window.location.hash&&window.location.hash.includes('access_token')){
-      console.log('Found token in URL, waiting...');
-      setTimeout(()=>{
-        if(!appInitialized){
-          console.log('Token timeout, showing login');
-          document.getElementById('auth-page').style.display='flex';
-          document.getElementById('app').style.display='none';
+  console.log('Boot: attempting session restore...');
+  
+  // Check if there's a stored session in localStorage
+  const storageKey = 'oncofiches-auth';
+  const stored = localStorage.getItem('sb-tnwacgnqutaapwxbtpoy-auth-token') || localStorage.getItem(storageKey);
+  
+  if(stored){
+    console.log('Found stored session data, length:', stored.length);
+    try{
+      const parsed = JSON.parse(stored);
+      // If we have a refresh token, try to use it
+      if(parsed.refresh_token){
+        console.log('Refresh token found, refreshing session...');
+        const{data,error} = await sb.auth.refreshSession({refresh_token: parsed.refresh_token});
+        console.log('refreshSession result:', !!data?.session, 'error:', error?.message);
+        if(data?.session?.user){
+          user = data.session.user;
+          if(!appInitialized){appInitialized=true;await initApp()}
+          return;
         }
-      },5000);
-      return;
+      }
+      // If refresh failed but we have access token, try setSession
+      if(parsed.access_token && parsed.refresh_token){
+        console.log('Trying setSession...');
+        const{data,error} = await sb.auth.setSession({
+          access_token: parsed.access_token,
+          refresh_token: parsed.refresh_token
+        });
+        console.log('setSession result:', !!data?.session, 'error:', error?.message);
+        if(data?.session?.user){
+          user = data.session.user;
+          if(!appInitialized){appInitialized=true;await initApp()}
+          return;
+        }
+      }
+    }catch(e){
+      console.log('Session restore failed:', e.message);
     }
-    console.log('No session, showing login');
-    document.getElementById('auth-page').style.display='flex';
-    document.getElementById('app').style.display='none';
-  }catch(e){
-    console.error('Boot error:',e);
+  } else {
+    console.log('No stored session found');
+  }
+  
+  // No valid session, show login
+  if(!appInitialized){
+    console.log('Showing login page');
     document.getElementById('auth-page').style.display='flex';
     document.getElementById('app').style.display='none';
   }
 }
 
-boot();
+// Wait a moment for onAuthStateChange to fire first (INITIAL_SESSION)
+setTimeout(()=>{
+  if(!appInitialized){
+    console.log('onAuthStateChange did not fire, trying manual boot...');
+    boot();
+  }
+}, 1500);
 </script>
 </body>
 </html>
