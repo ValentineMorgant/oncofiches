@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OncoFiches</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293b;font-size:14px;line-height:1.5}
@@ -103,6 +104,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293
 .ann-item .date{font-size:10px;color:#92400e;margin-top:2px}
 .ann-item .del{background:none;border:none;color:#dc2626;cursor:pointer;padding:4px 6px;font-size:18px;line-height:1;border-radius:4px}
 .ann-item .del:hover{background:#fee2e2}
+.ann-item .edit{background:none;border:none;color:#2563eb;cursor:pointer;padding:4px 6px;font-size:16px;line-height:1;border-radius:4px}
+.ann-item .edit:hover{background:#dbeafe}
+.ann-actions{display:flex;gap:2px;flex-shrink:0;align-items:center}
+.edit-form{margin-top:4px}
+.edit-form textarea{width:100%;border:1px solid #93c5fd;border-radius:6px;padding:6px;font-size:12px;resize:vertical;font-family:inherit}
+.edit-form button{font-size:11px;padding:4px 10px;border:none;border-radius:4px;cursor:pointer;margin-top:4px;margin-right:4px}
+.pdf-btn{background:var(--theme);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:6px;margin:12px 0}
+.pdf-btn:hover{opacity:.9}
 .ann-section{font-size:10px;font-weight:700;color:#b45309;margin-bottom:2px}
 #add-note-btn{background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;color:#64748b;width:100%;text-align:left}
 #note-form{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:10px;display:none}
@@ -272,7 +281,7 @@ function getSavedSession(){
   }catch(e){return null}
 }
 
-const COLORS=['#2a4d8f','#1a365d','#0f766e','#7c3aed','#be185d','#c2410c','#15803d','#1d4ed8','#9333ea','#dc2626'];
+const COLORS=['#2a4d8f','#0f766e','#7c3aed','#be185d','#c2410c','#15803d','#9333ea','#0891b2','#b91c1c','#a16207','#4f46e5','#059669'];
 let user=null,profile=null,cancers=[],sections={},annotations=[],curF=null,curS=0,sidebarOpen=true;
 
 // AUTH
@@ -544,6 +553,7 @@ function renderDetail(){
   });
   sb+='<div style="border-top:1px solid #e2e8f0;margin:4px 0"></div>';
   sb+=`<div class="sidebar-notes${curS===-1?' active':''}" onclick="setSection(-1)">📝 Mes notes (${a.length})</div>`;
+  sb+=`<div style="padding:8px 12px"><button class="pdf-btn" onclick="exportPDF()" style="width:100%;margin:0;font-size:11px;padding:8px 10px">📄 Exporter en PDF</button></div>`;
   sb+=`<div class="sidebar-sources"><div class="src-title">Sources</div><div class="src-item src-pink"><span style="color:var(--pk)">■ ROSE = ESMO</span><br>Argilés G et al. Localised colon cancer: ESMO Clinical Practice Guidelines. <i>Ann Oncol</i> 2020.</div><div class="src-item src-green"><span style="color:var(--gn)">■ VERT = TNCD</span><br>Lecomte T, Tougeron D et al. Cancer du côlon non métastatique. TNCD Chapitre 3, MAJ 13/02/2026.</div></div>`;
   document.getElementById('sidebar').innerHTML=sb;
   renderContent();
@@ -565,7 +575,9 @@ function renderContent(){
     let h=`<div class="section-card"><div class="content">${sec.html_content}</div></div>`;
     if(sa.length>0){
       h+='<div style="margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:4px">📝 Notes sur cette section</div>';
-      sa.forEach(x=>{h+=`<div class="ann-item"><div><div>${x.content}</div><div class="date">${new Date(x.created_at).toLocaleDateString('fr-FR')}</div></div><button class="del" onclick="delAnn(${x.id})">🗑</button></div>`});
+      sa.forEach(x=>{
+        h+=`<div class="ann-item" id="ann-${x.id}"><div style="flex:1"><div class="ann-text-${x.id}">${x.content}</div><div class="date">${new Date(x.created_at).toLocaleDateString('fr-FR')}</div><div class="edit-form" id="edit-form-${x.id}" style="display:none"><textarea id="edit-text-${x.id}" rows="2">${x.content}</textarea><button onclick="confirmEdit(${x.id})" style="background:var(--theme);color:#fff">Enregistrer</button><button onclick="cancelEdit(${x.id})" style="background:#f1f5f9;color:#64748b">Annuler</button></div></div><div class="ann-actions"><button class="edit" onclick="startEdit(${x.id})" title="Modifier">✏️</button><button class="del" onclick="delAnn(${x.id})" title="Supprimer">🗑</button></div></div>`;
+      });
       h+='</div>';
     }
     h+=`<button id="add-note-btn" onclick="showNF()">+ Ajouter une note sur « ${sec.title} »</button>`;
@@ -574,9 +586,114 @@ function renderContent(){
   } else {
     let h='<div class="section-card"><h3 style="color:#92400e;border-bottom-color:#f59e0b">📝 Toutes mes notes</h3>';
     if(a.length===0)h+='<div style="text-align:center;padding:30px;color:#94a3b8;font-size:13px">Aucune annotation. Sélectionnez une section pour en ajouter.</div>';
-    else a.forEach(x=>{h+=`<div class="ann-item"><div><div class="ann-section">${x.section_title||'Général'}</div><div>${x.content}</div><div class="date">${new Date(x.created_at).toLocaleDateString('fr-FR')}</div></div><button class="del" onclick="delAnn(${x.id})">🗑</button></div>`});
-    h+='</div>';mc.innerHTML=h;
+    else a.forEach(x=>{
+      h+=`<div class="ann-item" id="ann-${x.id}"><div style="flex:1"><div class="ann-section">${x.section_title||'Général'}</div><div class="ann-text-${x.id}">${x.content}</div><div class="date">${new Date(x.created_at).toLocaleDateString('fr-FR')}</div><div class="edit-form" id="edit-form-${x.id}" style="display:none"><textarea id="edit-text-${x.id}" rows="2">${x.content}</textarea><button onclick="confirmEdit(${x.id})" style="background:var(--theme);color:#fff">Enregistrer</button><button onclick="cancelEdit(${x.id})" style="background:#f1f5f9;color:#64748b">Annuler</button></div></div><div class="ann-actions"><button class="edit" onclick="startEdit(${x.id})" title="Modifier">✏️</button><button class="del" onclick="delAnn(${x.id})" title="Supprimer">🗑</button></div></div>`;
+    });
+    h+='</div>';
+    
+    // PDF export button
+    h+=`<button class="pdf-btn" onclick="exportPDF()">📄 Exporter cette fiche en PDF (avec mes notes)</button>`;
+    
+    mc.innerHTML=h;
   }
+}
+
+// Edit annotation
+function startEdit(id){
+  document.getElementById('edit-form-'+id).style.display='block';
+  const textEl=document.querySelector('.ann-text-'+id);
+  if(textEl)textEl.style.display='none';
+  document.getElementById('edit-text-'+id).focus();
+}
+
+function cancelEdit(id){
+  document.getElementById('edit-form-'+id).style.display='none';
+  const textEl=document.querySelector('.ann-text-'+id);
+  if(textEl)textEl.style.display='block';
+}
+
+async function confirmEdit(id){
+  const newText=document.getElementById('edit-text-'+id).value.trim();
+  if(!newText)return;
+  const saved=getSavedSession();
+  const token=saved?.access_token;
+  try{
+    await fetch(SUPA_URL+'/rest/v1/annotations?id=eq.'+id,{
+      method:'PATCH',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(token||SUPA_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({content:newText})
+    });
+    const ann=annotations.find(x=>x.id===id);
+    if(ann)ann.content=newText;
+    renderDetail();
+  }catch(e){alert('Erreur: '+e.message)}
+}
+
+// PDF Export
+async function exportPDF(){
+  if(!curF)return;
+  const secs=sections[curF.id]||[];
+  const a=annotations.filter(x=>x.fiche_id===curF.id);
+  
+  // Build HTML for PDF
+  let html=`<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:12px;color:#1e293b;padding:10px">`;
+  html+=`<h1 style="color:${curF.color};font-size:22px;border-bottom:3px solid ${curF.color};padding-bottom:8px;margin-bottom:4px">${curF.name}</h1>`;
+  html+=`<p style="color:#64748b;font-size:11px;margin-bottom:20px">Mise à jour : ${curF.last_updated||'—'} · Exporté le ${new Date().toLocaleDateString('fr-FR')}</p>`;
+  
+  secs.forEach((sec,i)=>{
+    html+=`<div style="page-break-inside:avoid;margin-bottom:16px">`;
+    html+=`<div style="margin-bottom:12px">${sec.html_content}</div>`;
+    
+    // Add annotations for this section
+    const secAnns=a.filter(x=>x.section_index===i);
+    if(secAnns.length>0){
+      html+=`<div style="border:1.5px solid #fde68a;border-radius:8px;padding:10px;background:#fefce8;margin:8px 0">`;
+      html+=`<div style="font-weight:700;color:#92400e;font-size:11px;margin-bottom:6px">📝 Mes notes</div>`;
+      secAnns.forEach(ann=>{
+        html+=`<div style="padding:4px 0;border-bottom:1px solid #fde68a;font-size:11px"><span>${ann.content}</span> <span style="color:#a3a3a3;font-size:9px">— ${new Date(ann.created_at).toLocaleDateString('fr-FR')}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    html+=`</div>`;
+  });
+  
+  html+=`<div style="margin-top:20px;padding-top:10px;border-top:1px solid #e2e8f0;font-size:9px;color:#94a3b8">OncoFiches · ${profile?.display_name||'Utilisateur'} · ${new Date().toLocaleDateString('fr-FR')}</div>`;
+  html+=`</div>`;
+  
+  // Create temporary element
+  const container=document.createElement('div');
+  container.innerHTML=html;
+  container.style.position='absolute';
+  container.style.left='-9999px';
+  container.style.width='210mm';
+  document.body.appendChild(container);
+  
+  // Apply table styles inline for PDF
+  container.querySelectorAll('table').forEach(t=>{
+    t.style.width='100%';t.style.borderCollapse='collapse';t.style.fontSize='10px';t.style.marginBottom='8px';
+  });
+  container.querySelectorAll('th,td').forEach(c=>{
+    c.style.border='1px solid #cbd5e1';c.style.padding='5px 7px';c.style.textAlign='left';c.style.verticalAlign='top';c.style.lineHeight='1.4';
+  });
+  container.querySelectorAll('th').forEach(c=>{
+    c.style.background='#e8edf4';c.style.fontWeight='700';c.style.fontSize='10px';
+  });
+  
+  try{
+    await html2pdf().set({
+      margin:[10,10,10,10],
+      filename:curF.name.replace(/[^a-zA-Zéèêëàâäùûüôöïîç0-9 ]/g,'').replace(/\s+/g,'_')+'.pdf',
+      image:{type:'jpeg',quality:0.95},
+      html2canvas:{scale:2,useCORS:true,letterRendering:true},
+      jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+      pagebreak:{mode:['avoid-all','css','legacy']}
+    }).from(container).save();
+  }catch(e){
+    console.error('PDF error:',e);
+    alert('Erreur lors de l\'export PDF.');
+  }
+  
+  document.body.removeChild(container);
 }
 
 function showNF(){document.getElementById('add-note-btn').style.display='none';document.getElementById('note-form').style.display='block';document.getElementById('note-text').focus()}
@@ -585,14 +702,33 @@ function hideNF(){document.getElementById('add-note-btn').style.display='block';
 async function saveN(){
   const t=document.getElementById('note-text').value.trim();if(!t||!curF)return;
   const secs=sections[curF.id]||[];
+  const saved=getSavedSession();
+  const token=saved?.access_token;
   const row={user_id:user.id,fiche_id:curF.id,section_index:curS>=0?curS:null,section_title:curS>=0?secs[curS]?.title:'Général',content:t};
-  const{data,error}=await sb.from('annotations').insert(row).select().single();
-  if(!error&&data){annotations.unshift(data);renderDetail()}
-  else{alert('Erreur: '+(error?.message||'inconnue'))}
+  try{
+    const res=await fetch(SUPA_URL+'/rest/v1/annotations',{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(token||SUPA_KEY),'Content-Type':'application/json','Prefer':'return=representation'},
+      body:JSON.stringify(row)
+    });
+    if(res.ok){
+      const data=await res.json();
+      if(data.length>0)annotations.unshift(data[0]);
+      renderDetail();
+    } else {
+      const err=await res.json().catch(()=>({}));
+      alert('Erreur: '+(err.message||res.status));
+    }
+  }catch(e){alert('Erreur: '+e.message)}
 }
 
 async function delAnn(id){
-  await sb.from('annotations').delete().eq('id',id);
+  const saved=getSavedSession();
+  const token=saved?.access_token;
+  await fetch(SUPA_URL+'/rest/v1/annotations?id=eq.'+id,{
+    method:'DELETE',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(token||SUPA_KEY)}
+  }).catch(()=>{});
   annotations=annotations.filter(x=>x.id!==id);
   renderDetail();
 }
