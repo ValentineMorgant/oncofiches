@@ -363,8 +363,7 @@ async function logout(){
 
 // INIT APP
 async function initApp(){
-  if(appInitialized)return;
-  appInitialized=true;
+  if(appInitialized && cancers.length > 0) return; // already loaded
   document.getElementById('auth-page').style.display='none';
   document.getElementById('app').style.display='block';
 
@@ -373,11 +372,28 @@ async function initApp(){
   listEl.innerHTML='<div class="loading"><div class="spinner"></div>Chargement des fiches...</div>';
   document.getElementById('detail').style.display='none';
 
+  // Get current access token
+  const saved = getSavedSession();
+  const token = saved?.access_token;
+
+  // Helper: fetch from Supabase REST API directly
+  async function query(table, params=''){
+    const res = await fetch(SUPA_URL+'/rest/v1/'+table+'?'+params, {
+      headers:{
+        'apikey':SUPA_KEY,
+        'Authorization':'Bearer '+(token||SUPA_KEY),
+        'Content-Type':'application/json'
+      }
+    });
+    if(!res.ok){console.error('Query error '+table+':',res.status);return []}
+    return await res.json();
+  }
+
   // Load profile
   try{
-    const{data:p,error:pe}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
-    console.log('Profile loaded:',p,'Error:',pe);
-    if(p){profile=p}
+    const p = await query('profiles','id=eq.'+user.id+'&limit=1');
+    console.log('Profile loaded:', p.length);
+    if(p.length>0){profile=p[0]}
     else{profile={display_name:user.user_metadata?.full_name||user.user_metadata?.name||user.email?.split('@')[0]||'Utilisateur',role:'Autre',theme_color:'#2a4d8f'}}
   }catch(e){
     console.error('Profile error:',e);
@@ -389,31 +405,31 @@ async function initApp(){
   document.getElementById('user-avatar').textContent=(profile.display_name||'U').charAt(0).toUpperCase();
 
   // Update last login (non-blocking)
-  sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',user.id).then(()=>{});
+  fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+user.id,{method:'PATCH',headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(token||SUPA_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({last_login:new Date().toISOString()})}).catch(()=>{});
 
   // Load cancers
   try{
-    const{data:c,error:ce}=await sb.from('cancers').select('*,cancer_categories(name)').order('display_order');
-    console.log('Cancers loaded:',c?.length,'Error:',ce);
-    cancers=c||[];
+    const raw = await query('cancers','select=*,cancer_categories(name)&order=display_order');
+    console.log('Cancers loaded:', raw.length);
+    cancers = raw || [];
   }catch(e){console.error('Cancers error:',e);cancers=[]}
 
   // Load sections
   try{
-    const{data:s,error:se}=await sb.from('cancer_sections').select('*').order('display_order');
-    console.log('Sections loaded:',s?.length,'Error:',se);
+    const raw = await query('cancer_sections','select=*&order=display_order');
+    console.log('Sections loaded:', raw.length);
     sections={};
-    (s||[]).forEach(sec=>{if(!sections[sec.cancer_id])sections[sec.cancer_id]=[];sections[sec.cancer_id].push(sec)});
+    (raw||[]).forEach(sec=>{if(!sections[sec.cancer_id])sections[sec.cancer_id]=[];sections[sec.cancer_id].push(sec)});
   }catch(e){console.error('Sections error:',e);sections={}}
 
   // Load annotations
   try{
-    const{data:a,error:ae}=await sb.from('annotations').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
-    console.log('Annotations loaded:',a?.length,'Error:',ae);
-    annotations=a||[];
+    const raw = await query('annotations','user_id=eq.'+user.id+'&order=created_at.desc');
+    console.log('Annotations loaded:', raw.length);
+    annotations = raw || [];
   }catch(e){console.error('Annotations error:',e);annotations=[]}
 
-  console.log('InitApp complete. Cancers:',cancers.length,'Sections keys:',Object.keys(sections));
+  console.log('InitApp complete. Cancers:',cancers.length);
   renderListView();
 }
 
@@ -597,24 +613,37 @@ async function boot(){
 
   console.log('Found saved session for:', saved.user?.email);
   
-  // Try to refresh the session with the saved refresh token
+  // Refresh token via REST API directly (bypass SDK which hangs)
   try{
-    const{data,error} = await sb.auth.setSession({
-      access_token: saved.access_token,
-      refresh_token: saved.refresh_token
+    console.log('Refreshing token via REST API...');
+    const res = await fetch(SUPA_URL+'/auth/v1/token?grant_type=refresh_token', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+      body:JSON.stringify({refresh_token:saved.refresh_token})
     });
     
-    console.log('setSession result:', !!data?.session, 'error:', error?.message);
+    console.log('REST refresh status:', res.status);
     
-    if(data?.session?.user){
-      saveSession(data.session);
-      user = data.session.user;
+    if(res.ok){
+      const data = await res.json();
+      console.log('Token refreshed for:', data.user?.email);
+      
+      // Save new tokens
+      saveSession({access_token:data.access_token, refresh_token:data.refresh_token, user:data.user});
+      
+      // Set session in SDK (non-blocking, don't await)
+      sb.auth.setSession({access_token:data.access_token, refresh_token:data.refresh_token}).catch(()=>{});
+      
+      user = data.user;
       appInitialized = true;
       await initApp();
       return;
+    } else {
+      const err = await res.json().catch(()=>({}));
+      console.log('Token refresh failed:', err.error_description || err.error || res.status);
     }
   }catch(e){
-    console.log('setSession failed:', e.message);
+    console.log('REST refresh error:', e.message);
   }
   
   // If refresh failed, clear and show login
