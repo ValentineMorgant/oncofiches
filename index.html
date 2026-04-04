@@ -70,12 +70,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293
 .card-meta{font-size:12px;color:#64748b}
 .card-meta .badge{background:#f1f5f9;padding:2px 8px;border-radius:6px;margin-right:5px;font-weight:600}
 .ann-badge{background:#fef3cd;border-radius:8px;padding:2px 8px;font-size:10px;color:#92400e;font-weight:600}
-.user-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px;background:#fff;border-bottom:1px solid #e2e8f0;font-size:12px}
-.user-bar button{background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;color:#64748b}
-.user-bar button:hover{background:#f8fafc}
+.user-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:linear-gradient(135deg,#0f172a,var(--theme));color:#fff;font-size:13px;position:sticky;top:0;z-index:25;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.user-bar .user-info{display:flex;align-items:center;gap:8px}
+.user-bar .user-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.user-bar .user-details{line-height:1.3}
+.user-bar .user-details .name{font-weight:600;font-size:13px}
+.user-bar .user-details .role{font-size:10px;opacity:.7}
+.user-bar .user-actions{display:flex;gap:6px}
+.user-bar button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer;color:#fff;font-weight:500;transition:background .15s}
+.user-bar button:hover{background:rgba(255,255,255,.25)}
 
 /* DETAIL */
-#detail-header{background:linear-gradient(135deg,#0f172a,var(--theme));color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20}
+#detail-header{background:linear-gradient(135deg,#0f172a,var(--theme));color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:47px;z-index:20}
 #back-btn,#burger-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:12px;font-weight:600}
 #burger-btn{font-size:16px;padding:7px 10px}
 #sidebar{width:220px;background:#fff;border-right:1px solid #e2e8f0;overflow-y:auto;flex-shrink:0;transition:margin-left .25s ease}
@@ -95,7 +101,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293
 .section-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px}
 .ann-item{background:#fef9ee;border:1px solid #fde68a;border-radius:8px;padding:7px 10px;margin-bottom:5px;font-size:12px;display:flex;justify-content:space-between;align-items:flex-start}
 .ann-item .date{font-size:10px;color:#92400e;margin-top:2px}
-.ann-item .del{background:none;border:none;color:#dc2626;cursor:pointer;padding:2px;font-size:12px}
+.ann-item .del{background:none;border:none;color:#dc2626;cursor:pointer;padding:4px 6px;font-size:18px;line-height:1;border-radius:4px}
+.ann-item .del:hover{background:#fee2e2}
 .ann-section{font-size:10px;font-weight:700;color:#b45309;margin-bottom:2px}
 #add-note-btn{background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;color:#64748b;width:100%;text-align:left}
 #note-form{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:10px;display:none}
@@ -134,18 +141,19 @@ Continuer avec Google
 </button>
 <div class="auth-divider">ou</div>
 <div class="auth-tabs">
-<div class="auth-tab active" id="tab-magic" onclick="switchTab('magic')">Lien magique</div>
-<div class="auth-tab" id="tab-password" onclick="switchTab('password')">Email & mot de passe</div>
+<div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Se connecter</div>
+<div class="auth-tab" id="tab-signup" onclick="switchTab('signup')">Créer un compte</div>
 </div>
-<div id="form-magic">
-<input class="auth-input" type="email" id="magic-email" placeholder="votre@email.com">
-<button class="auth-btn auth-btn-primary" onclick="loginMagic()">Envoyer le lien de connexion</button>
+<div id="form-login">
+<input class="auth-input" type="email" id="login-email" placeholder="votre@email.com">
+<input class="auth-input" type="password" id="login-password" placeholder="Mot de passe">
+<button class="auth-btn auth-btn-primary" onclick="doLogin()">Se connecter</button>
 </div>
-<div id="form-password" style="display:none">
-<input class="auth-input" type="email" id="pw-email" placeholder="votre@email.com">
-<input class="auth-input" type="password" id="pw-password" placeholder="Mot de passe (min 6 caractères)">
-<button class="auth-btn auth-btn-primary" onclick="loginPassword()">Se connecter</button>
-<p style="text-align:center;font-size:11px;color:#94a3b8;margin-top:6px">Pas encore de compte ? Utilisez les mêmes champs pour vous inscrire automatiquement.</p>
+<div id="form-signup" style="display:none">
+<input class="auth-input" type="text" id="signup-name" placeholder="Votre nom (ex : Dr. Martin)">
+<input class="auth-input" type="email" id="signup-email" placeholder="votre@email.com">
+<input class="auth-input" type="password" id="signup-password" placeholder="Mot de passe (min 6 caractères)">
+<button class="auth-btn auth-btn-primary" onclick="doSignup()">Créer mon compte</button>
 </div>
 </div>
 </div>
@@ -181,10 +189,16 @@ Continuer avec Google
 
 <!-- USER BAR -->
 <div class="user-bar">
-<div>👤 <span id="user-name">...</span> <span id="user-role" style="color:#94a3b8;font-size:11px"></span></div>
-<div style="display:flex;gap:6px">
-<button onclick="openProfile()">⚙️ Profil</button>
-<button onclick="logout()">Déconnexion</button>
+<div class="user-info">
+<div class="user-avatar" id="user-avatar">V</div>
+<div class="user-details">
+<div class="name" id="user-name">...</div>
+<div class="role" id="user-role"></div>
+</div>
+</div>
+<div class="user-actions">
+<button onclick="openProfile()">⚙️ Mon compte</button>
+<button onclick="logout()">↩ Déconnexion</button>
 </div>
 </div>
 
@@ -233,21 +247,37 @@ const COLORS=['#2a4d8f','#1a365d','#0f766e','#7c3aed','#be185d','#c2410c','#1580
 let user=null,profile=null,cancers=[],sections={},annotations=[],curF=null,curS=0,sidebarOpen=true;
 
 // AUTH
+let appInitialized=false;
+
 async function checkSession(){
-  const{data}=await sb.auth.getSession();
-  if(data.session){user=data.session.user;await initApp()}
-  else{document.getElementById('auth-page').style.display='flex'}
+  const{data,error}=await sb.auth.getSession();
+  if(data.session&&data.session.user){
+    user=data.session.user;
+    if(!appInitialized)await initApp();
+  } else {
+    document.getElementById('auth-page').style.display='flex';
+    document.getElementById('app').style.display='none';
+  }
 }
 
 sb.auth.onAuthStateChange(async(event,session)=>{
-  if(event==='SIGNED_IN'&&session){user=session.user;await initApp()}
+  if((event==='SIGNED_IN'||event==='TOKEN_REFRESHED')&&session&&session.user){
+    user=session.user;
+    if(!appInitialized)await initApp();
+  }
+  if(event==='SIGNED_OUT'){
+    user=null;profile=null;appInitialized=false;
+    document.getElementById('app').style.display='none';
+    document.getElementById('auth-page').style.display='flex';
+  }
 });
 
 function switchTab(tab){
-  document.getElementById('tab-magic').className='auth-tab'+(tab==='magic'?' active':'');
-  document.getElementById('tab-password').className='auth-tab'+(tab==='password'?' active':'');
-  document.getElementById('form-magic').style.display=tab==='magic'?'block':'none';
-  document.getElementById('form-password').style.display=tab==='password'?'block':'none';
+  document.getElementById('tab-login').className='auth-tab'+(tab==='login'?' active':'');
+  document.getElementById('tab-signup').className='auth-tab'+(tab==='signup'?' active':'');
+  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
+  document.getElementById('form-signup').style.display=tab==='signup'?'block':'none';
+  document.getElementById('auth-message').innerHTML='';
 }
 
 function showAuthMsg(msg,ok){
@@ -259,61 +289,84 @@ async function loginGoogle(){
   if(error)showAuthMsg(error.message,false);
 }
 
-async function loginMagic(){
-  const email=document.getElementById('magic-email').value.trim();
-  if(!email)return showAuthMsg('Veuillez entrer votre email.',false);
-  const{error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
-  if(error)showAuthMsg(error.message,false);
-  else showAuthMsg('✉️ Lien de connexion envoyé ! Vérifiez votre boîte email.',true);
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pw=document.getElementById('login-password').value;
+  if(!email||!pw)return showAuthMsg('Veuillez remplir tous les champs.',false);
+  const{error}=await sb.auth.signInWithPassword({email,password:pw});
+  if(error){
+    if(error.message.includes('Invalid login'))showAuthMsg('Email ou mot de passe incorrect.',false);
+    else showAuthMsg(error.message,false);
+  }
 }
 
-async function loginPassword(){
-  const email=document.getElementById('pw-email').value.trim();
-  const pw=document.getElementById('pw-password').value;
-  if(!email||!pw)return showAuthMsg('Remplissez tous les champs.',false);
-  let{error}=await sb.auth.signInWithPassword({email,password:pw});
-  if(error&&error.message.includes('Invalid login')){
-    const r=await sb.auth.signUp({email,password:pw});
-    if(r.error)showAuthMsg(r.error.message,false);
-    else showAuthMsg('✅ Compte créé ! Vérifiez votre email pour confirmer.',true);
-  } else if(error){showAuthMsg(error.message,false)}
+async function doSignup(){
+  const name=document.getElementById('signup-name').value.trim();
+  const email=document.getElementById('signup-email').value.trim();
+  const pw=document.getElementById('signup-password').value;
+  if(!email||!pw)return showAuthMsg('Veuillez remplir tous les champs.',false);
+  if(pw.length<6)return showAuthMsg('Le mot de passe doit contenir au moins 6 caractères.',false);
+  const{error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name||email.split('@')[0]}}});
+  if(error)showAuthMsg(error.message,false);
+  else showAuthMsg('✅ Compte créé ! Vérifiez votre email pour confirmer votre inscription.',true);
 }
 
 async function logout(){
   await sb.auth.signOut();
-  user=null;profile=null;
+  user=null;profile=null;appInitialized=false;
+  cancers=[];sections={};annotations=[];
   document.getElementById('app').style.display='none';
   document.getElementById('auth-page').style.display='flex';
+  document.getElementById('auth-message').innerHTML='';
 }
 
 // INIT APP
 async function initApp(){
+  appInitialized=true;
   document.getElementById('auth-page').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('list').innerHTML='<div class="loading"><div class="spinner"></div>Chargement des fiches...</div>';
 
-  // Load profile
-  let{data:p}=await sb.from('profiles').select('*').eq('id',user.id).single();
-  if(p){profile=p;await sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',user.id)}
-  else{profile={display_name:user.email.split('@')[0],role:'Autre',theme_color:'#2a4d8f'}}
-  applyTheme(profile.theme_color||'#2a4d8f');
-  document.getElementById('user-name').textContent=profile.display_name||user.email;
-  document.getElementById('user-role').textContent=profile.role?`· ${profile.role}`:'';
+  // Show loading
+  const listEl=document.getElementById('list');
+  listEl.style.display='block';
+  listEl.innerHTML='<div class="loading"><div class="spinner"></div>Chargement des fiches...</div>';
+  document.getElementById('detail').style.display='none';
 
-  // Load cancers
-  const{data:c}=await sb.from('cancers').select('*,cancer_categories(name)').order('display_order');
-  cancers=c||[];
+  try{
+    // Load profile
+    const{data:p}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
+    if(p){
+      profile=p;
+      sb.from('profiles').update({last_login:new Date().toISOString()}).eq('id',user.id).then(()=>{});
+    } else {
+      profile={display_name:user.user_metadata?.full_name||user.user_metadata?.name||user.email.split('@')[0],role:'Autre',theme_color:'#2a4d8f'};
+    }
+    applyTheme(profile.theme_color||'#2a4d8f');
+    document.getElementById('user-name').textContent=profile.display_name||user.email;
+    document.getElementById('user-role').textContent=profile.role||'';
+    document.getElementById('user-avatar').textContent=(profile.display_name||user.email).charAt(0).toUpperCase();
 
-  // Load all sections
-  const{data:s}=await sb.from('cancer_sections').select('*').order('display_order');
-  sections={};
-  (s||[]).forEach(sec=>{if(!sections[sec.cancer_id])sections[sec.cancer_id]=[];sections[sec.cancer_id].push(sec)});
+    // Load cancers
+    const{data:c,error:ce}=await sb.from('cancers').select('*,cancer_categories(name)').order('display_order');
+    if(ce)console.error('Erreur cancers:',ce);
+    cancers=c||[];
 
-  // Load annotations
-  const{data:a}=await sb.from('annotations').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
-  annotations=a||[];
+    // Load all sections
+    const{data:s,error:se}=await sb.from('cancer_sections').select('*').order('display_order');
+    if(se)console.error('Erreur sections:',se);
+    sections={};
+    (s||[]).forEach(sec=>{if(!sections[sec.cancer_id])sections[sec.cancer_id]=[];sections[sec.cancer_id].push(sec)});
 
-  renderListView();
+    // Load annotations
+    const{data:a,error:ae}=await sb.from('annotations').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
+    if(ae)console.error('Erreur annotations:',ae);
+    annotations=a||[];
+
+    renderListView();
+  } catch(e){
+    console.error('Erreur initApp:',e);
+    listEl.innerHTML='<div class="loading" style="color:#dc2626">Erreur de chargement. <button onclick="initApp()" style="margin-top:10px;padding:8px 16px;border-radius:6px;border:none;background:var(--theme);color:#fff;cursor:pointer">Réessayer</button></div>';
+  }
 }
 
 function applyTheme(color){
@@ -340,7 +393,8 @@ async function saveProfile(){
   await sb.from('profiles').update({display_name:profile.display_name,role:profile.role,theme_color:profile.theme_color}).eq('id',user.id);
   applyTheme(profile.theme_color);
   document.getElementById('user-name').textContent=profile.display_name;
-  document.getElementById('user-role').textContent=`· ${profile.role}`;
+  document.getElementById('user-role').textContent=profile.role;
+  document.getElementById('user-avatar').textContent=profile.display_name.charAt(0).toUpperCase();
   closeProfile();
 }
 
