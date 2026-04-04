@@ -542,6 +542,32 @@ async function delAnn(id){
 
 // START
 console.log('OncoFiches starting...');
+
+async function boot(){
+  console.log('Boot: checking session...');
+  try{
+    const{data,error}=await sb.auth.getSession();
+    console.log('getSession:','session=',!!data?.session,'error=',error);
+    if(data?.session?.user){
+      user=data.session.user;
+      console.log('Session found for:',user.email);
+      if(!appInitialized){appInitialized=true;await initApp()}
+      return;
+    }
+    if(window.location.hash&&window.location.hash.includes('access_token')){
+      console.log('Found token in URL, waiting...');
+      return;
+    }
+    console.log('No session, showing login');
+    document.getElementById('auth-page').style.display='flex';
+    document.getElementById('app').style.display='none';
+  }catch(e){
+    console.error('Boot error:',e);
+    document.getElementById('auth-page').style.display='flex';
+    document.getElementById('app').style.display='none';
+  }
+}
+
 boot();
 </script>
 </body>
