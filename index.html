@@ -241,7 +241,15 @@ Continuer avec Google
 // SUPABASE INIT
 const SUPA_URL='https://tnwacgnqutaapwxbtpoy.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRud2FjZ25xdXRhYXB3eGJ0cG95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMjE0OTAsImV4cCI6MjA5MDg5NzQ5MH0.ByxLOgLP8C3P24WuSJALi6_A0l2-dHHJnvYYOji9h-c';
-const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
+const sb=supabase.createClient(SUPA_URL,SUPA_KEY,{
+  auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true,
+    storageKey:'oncofiches-auth',
+    flowType:'pkce'
+  }
+});
 
 const COLORS=['#2a4d8f','#1a365d','#0f766e','#7c3aed','#be185d','#c2410c','#15803d','#1d4ed8','#9333ea','#dc2626'];
 let user=null,profile=null,cancers=[],sections={},annotations=[],curF=null,curS=0,sidebarOpen=true;
@@ -546,8 +554,13 @@ console.log('OncoFiches starting...');
 async function boot(){
   console.log('Boot: checking session...');
   try{
-    const{data,error}=await sb.auth.getSession();
+    // getSession with 5s timeout to avoid infinite hang
+    const sessionPromise = sb.auth.getSession();
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve({data:{session:null},error:'timeout'}), 5000));
+    const{data,error} = await Promise.race([sessionPromise, timeoutPromise]);
+    
     console.log('getSession:','session=',!!data?.session,'error=',error);
+    
     if(data?.session?.user){
       user=data.session.user;
       console.log('Session found for:',user.email);
@@ -556,6 +569,13 @@ async function boot(){
     }
     if(window.location.hash&&window.location.hash.includes('access_token')){
       console.log('Found token in URL, waiting...');
+      setTimeout(()=>{
+        if(!appInitialized){
+          console.log('Token timeout, showing login');
+          document.getElementById('auth-page').style.display='flex';
+          document.getElementById('app').style.display='none';
+        }
+      },5000);
       return;
     }
     console.log('No session, showing login');
