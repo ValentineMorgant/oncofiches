@@ -6,78 +6,98 @@
 <title>OncoFiches</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293b;font-size:13px;line-height:1.5}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293b;font-size:14px;line-height:1.5}
 :root{--hd:#1a365d;--pk:#c0007a;--gn:#1a7a2e;--blue:#2a4d8f}
 .hp{color:var(--pk)}.hg{color:var(--gn)}
 
-/* Tables */
-.T{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0}
-.T th,.T td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top;line-height:1.45}
-.T th{background:#e8edf4;font-weight:700;font-size:11px}
-.T ul{margin:2px 0 2px 16px;padding:0}.T li{margin-bottom:2px}
+.T{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+.T th,.T td{border:1px solid #cbd5e1;padding:7px 9px;text-align:left;vertical-align:top;line-height:1.5}
+.T th{background:#e8edf4;font-weight:700;font-size:11.5px}
+.T ul{margin:2px 0 2px 16px;padding:0}.T li{margin-bottom:3px}
 .T-hdr{background:var(--hd)!important;color:inherit!important}
 
-/* Headings inside content */
-.content h3{margin:0 0 10px;font-size:14px;color:var(--hd);padding-bottom:6px;border-bottom:2px solid var(--blue)}
-.content h4{margin:12px 0 6px;font-size:12.5px;color:#334155;font-weight:700}
+.content h3{margin:0 0 12px;font-size:15px;color:var(--hd);padding-bottom:7px;border-bottom:2px solid var(--blue)}
+.content h4{margin:14px 0 6px;font-size:13px;color:#334155;font-weight:700}
 
-/* Algo boxes */
-.A{border:2px solid var(--hd);border-radius:10px;padding:14px;margin:12px 0;background:#f8fafc}
-.AT{text-align:center;font-weight:800;font-size:13.5px;color:var(--hd);border-bottom:2px solid var(--hd);padding-bottom:7px;margin-bottom:10px}
-.N{border:2px solid var(--blue);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;line-height:1.4;background:#fff;display:inline-block;max-width:240px;vertical-align:top}
+.A{border:2px solid var(--hd);border-radius:10px;padding:16px;margin:14px 0;background:#f8fafc}
+.AT{text-align:center;font-weight:800;font-size:14px;color:var(--hd);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:12px}
+.N{border:2px solid var(--blue);border-radius:8px;padding:9px 13px;text-align:center;font-size:11.5px;line-height:1.4;background:#fff;display:inline-block;max-width:250px;vertical-align:top}
 .Nr{background:#dbeafe;border-color:#2563eb}.No{background:#fef9c3;border-color:#ca8a04}
 .Nk{background:#dcfce7;border-color:#16a34a}.Nx{background:#fee2e2;border-color:#dc2626}
-.AR{text-align:center;font-size:18px;color:var(--blue);margin:4px 0}
-.R{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.AR{text-align:center;font-size:20px;color:var(--blue);margin:5px 0;line-height:1}
+.R{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
 .CN{display:flex;flex-direction:column;align-items:center}
-.BL{font-size:10px;font-weight:700;color:#475569;text-align:center;margin-bottom:4px}
+.BL{font-size:10.5px;font-weight:700;color:#475569;text-align:center;margin-bottom:4px}
 
-/* Info boxes */
-.NT{font-size:10.5px;color:#64748b;font-style:italic;margin:4px 0}
-.W{border:1.5px solid #dc2626;border-radius:6px;padding:6px 10px;background:#fef2f2;font-size:11px;text-align:center;margin:8px 0;color:#991b1b}
-.NW{border:1.5px dashed var(--gn);border-radius:6px;padding:8px 12px;background:#f0fdf4;font-size:11px;margin:8px 0}
-.I{border:1.5px solid #3b82f6;border-radius:6px;padding:8px 12px;background:#eff6ff;font-size:11px;margin:8px 0}
-.WA{border:1.5px solid #d97706;border-radius:6px;padding:6px 10px;background:#fffbeb;font-size:11px;margin:6px 0;color:#92400e}
+.NT{font-size:11px;color:#64748b;font-style:italic;margin:5px 0;line-height:1.45}
+.W{border:1.5px solid #dc2626;border-radius:6px;padding:7px 11px;background:#fef2f2;font-size:11.5px;text-align:center;margin:10px 0;color:#991b1b}
+.NW{border:1.5px dashed var(--gn);border-radius:6px;padding:9px 13px;background:#f0fdf4;font-size:11.5px;margin:10px 0}
+.I{border:1.5px solid #3b82f6;border-radius:6px;padding:9px 13px;background:#eff6ff;font-size:11.5px;margin:10px 0}
+.WA{border:1.5px solid #d97706;border-radius:6px;padding:7px 11px;background:#fffbeb;font-size:11.5px;margin:8px 0;color:#92400e}
 
-/* Layout */
-#header{background:linear-gradient(135deg,#0f172a,var(--hd));color:#fff;padding:16px 14px 12px}
-#header h1{font-size:18px;font-weight:800}
-#header .sub{font-size:10px;opacity:.7}
-#searchbar{width:100%;padding:8px 10px 8px 32px;border-radius:8px;border:none;font-size:12px;background:rgba(255,255,255,.95);margin-top:10px}
-#cats{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
-#cats button{background:rgba(255,255,255,.12);color:#fff;border:none;border-radius:14px;padding:3px 11px;font-size:10px;cursor:pointer}
-#cats button.active{background:#fff;color:var(--hd);font-weight:700}
-.card{background:#fff;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04);border-left:4px solid var(--blue)}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card-title{font-size:14px;font-weight:700;margin-bottom:2px}
-.card-meta{font-size:10px;color:#64748b;margin-bottom:3px}
-.card-meta .badge{background:#f1f5f9;padding:1px 6px;border-radius:6px;margin-right:4px}
-.tag{background:#eef2ff;color:#4338ca;font-size:9px;padding:1px 5px;border-radius:5px;display:inline-block;margin:1px}
-.ann-badge{background:#fef3cd;border-radius:8px;padding:1px 6px;font-size:9px;color:#92400e;font-weight:600}
+/* HEADER */
+#header{background:linear-gradient(135deg,#0f172a,var(--hd));color:#fff;padding:20px 18px 16px}
+#header h1{font-size:22px;font-weight:800}
+#header .sub{font-size:12px;opacity:.7;margin-top:2px}
+#searchbar{width:100%;padding:10px 12px 10px 36px;border-radius:10px;border:none;font-size:14px;background:rgba(255,255,255,.95);margin-top:12px}
+#search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#94a3b8}
 
-/* Detail view */
+/* STATS */
+.stats{display:flex;gap:10px;padding:12px 18px}
+.stat-box{flex:1;background:#fff;border-radius:10px;padding:10px 14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.stat-val{font-size:24px;font-weight:800}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px}
+
+/* CARDS */
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.05);border-left:5px solid var(--blue);transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.card-title{font-size:17px;font-weight:700;margin-bottom:4px}
+.card-meta{font-size:12px;color:#64748b}
+.card-meta .badge{background:#f1f5f9;padding:2px 8px;border-radius:6px;margin-right:5px;font-weight:600}
+.ann-badge{background:#fef3cd;border-radius:8px;padding:2px 8px;font-size:10px;color:#92400e;font-weight:600}
+
+/* DETAIL HEADER */
 #detail{display:none}
-#detail-header{background:linear-gradient(135deg,#0f172a,var(--hd));color:#fff;padding:10px 14px}
-#back-btn{background:rgba(255,255,255,.12);border:none;color:#fff;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:11px}
-#sidebar{width:195px;background:#fff;border-right:1px solid #e2e8f0;overflow-y:auto;flex-shrink:0}
-.sidebar-item{padding:6px 10px;cursor:pointer;font-size:11px;border-left:3px solid transparent;display:flex;align-items:center;gap:3px;line-height:1.25;color:#475569}
+#detail-header{background:linear-gradient(135deg,#0f172a,var(--hd));color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+#back-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:12px;font-weight:600}
+#back-btn:hover{background:rgba(255,255,255,.25)}
+#burger-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer;font-size:16px;display:none}
+
+/* SIDEBAR */
+#sidebar{width:220px;background:#fff;border-right:1px solid #e2e8f0;overflow-y:auto;flex-shrink:0;transition:margin-left .25s ease}
+#sidebar.closed{margin-left:-220px}
+.sidebar-item{padding:8px 12px;cursor:pointer;font-size:12px;border-left:3px solid transparent;display:flex;align-items:center;gap:4px;line-height:1.3;color:#475569;transition:background .1s}
 .sidebar-item:hover{background:#f8fafc}
 .sidebar-item.active{border-left-color:var(--blue);background:#f0f4ff;font-weight:600;color:var(--hd)}
-.sidebar-item .dot{width:5px;height:5px;border-radius:50%;background:#f59e0b;flex-shrink:0;margin-left:auto}
-.sidebar-notes{padding:6px 10px;cursor:pointer;font-size:11px;border-left:3px solid transparent;color:#92400e;display:flex;align-items:center;gap:3px}
+.sidebar-item .dot{width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0;margin-left:auto}
+.sidebar-notes{padding:8px 12px;cursor:pointer;font-size:12px;border-left:3px solid transparent;color:#92400e;display:flex;align-items:center;gap:4px}
+.sidebar-notes:hover{background:#fefce8}
 .sidebar-notes.active{border-left-color:#f59e0b;background:#fef9ee;font-weight:600}
-#main-content{flex:1;overflow-y:auto;padding:10px 14px}
-.section-card{background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:10px}
-.ann-item{background:#fef9ee;border:1px solid #fde68a;border-radius:6px;padding:5px 8px;margin-bottom:4px;font-size:11px;display:flex;justify-content:space-between;align-items:flex-start}
-.ann-item .date{font-size:9px;color:#92400e;margin-top:1px}
-.ann-item .del{background:none;border:none;color:#dc2626;cursor:pointer;padding:1px;font-size:11px}
-.ann-section{font-size:9px;font-weight:700;color:#b45309;margin-bottom:1px}
-#add-note-btn{background:#fff;border:1px dashed #cbd5e1;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:10px;color:#64748b;width:100%;text-align:left}
-#note-form{background:#fff;border:1px solid #fde68a;border-radius:6px;padding:8px;display:none}
-#note-form textarea{width:100%;border:1px solid #e2e8f0;border-radius:4px;padding:5px;font-size:11px;resize:vertical;font-family:inherit}
-#note-form .btns{display:flex;gap:5px;margin-top:5px}
-#save-note{background:var(--hd);color:#fff;border:none;border-radius:4px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600}
-#cancel-note{background:#f1f5f9;color:#64748b;border:none;border-radius:4px;padding:4px 12px;font-size:11px;cursor:pointer}
+
+/* MAIN CONTENT */
+#main-content{flex:1;overflow-y:auto;padding:14px 18px}
+.section-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px}
+.ann-item{background:#fef9ee;border:1px solid #fde68a;border-radius:8px;padding:7px 10px;margin-bottom:5px;font-size:12px;display:flex;justify-content:space-between;align-items:flex-start}
+.ann-item .date{font-size:10px;color:#92400e;margin-top:2px}
+.ann-item .del{background:none;border:none;color:#dc2626;cursor:pointer;padding:2px;font-size:12px}
+.ann-section{font-size:10px;font-weight:700;color:#b45309;margin-bottom:2px}
+#add-note-btn{background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;color:#64748b;width:100%;text-align:left}
+#add-note-btn:hover{background:#f8fafc;border-color:#94a3b8}
+#note-form{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:10px;display:none}
+#note-form textarea{width:100%;border:1px solid #e2e8f0;border-radius:6px;padding:8px;font-size:12px;resize:vertical;font-family:inherit}
+#save-note{background:var(--hd);color:#fff;border:none;border-radius:6px;padding:6px 16px;font-size:12px;cursor:pointer;font-weight:600}
+#save-note:hover{background:#0f172a}
+#cancel-note{background:#f1f5f9;color:#64748b;border:none;border-radius:6px;padding:6px 16px;font-size:12px;cursor:pointer}
+
+/* OVERLAY for mobile */
+#sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.3);z-index:9}
+
+@media(max-width:768px){
+  #sidebar{position:fixed;top:0;left:0;height:100vh;z-index:10;box-shadow:2px 0 12px rgba(0,0,0,.15)}
+  #sidebar.closed{margin-left:-220px}
+  #burger-btn{display:block}
+  #sidebar-overlay.open{display:block}
+}
 </style>
 </head>
 <body>
@@ -85,241 +105,196 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293
 <!-- LIST VIEW -->
 <div id="list">
   <div id="header">
-    <div style="display:flex;align-items:center;gap:8px">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+    <div style="display:flex;align-items:center;gap:10px">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
       <div><h1>OncoFiches</h1><div class="sub">Fiches de prise en charge oncologique</div></div>
     </div>
     <div style="position:relative">
-      <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#94a3b8" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input id="searchbar" placeholder="Rechercher..." oninput="filterList()">
+      <svg id="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="searchbar" placeholder="Rechercher un cancer, un protocole, un biomarqueur..." oninput="filterList()">
     </div>
-    <div id="cats"></div>
   </div>
-  <div id="fiche-list" style="padding:8px 14px 16px"></div>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-val" id="stat-fiches" style="color:var(--hd)">0</div><div class="stat-label">Fiches</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-notes" style="color:#f59e0b">0</div><div class="stat-label">Notes</div></div>
+  </div>
+  <div id="fiche-list" style="padding:0 18px 20px"></div>
 </div>
 
 <!-- DETAIL VIEW -->
 <div id="detail">
   <div id="detail-header">
-    <div style="display:flex;align-items:center;gap:8px">
-      <button id="back-btn" onclick="goBack()">← Retour</button>
-      <div style="flex:1"><div id="detail-title" style="font-size:15px;font-weight:700"></div><div id="detail-meta" style="font-size:10px;opacity:.7"></div></div>
-    </div>
+    <button id="back-btn" onclick="goBack()">← Retour</button>
+    <button id="burger-btn" onclick="toggleSidebar()">☰</button>
+    <div style="flex:1"><div id="detail-title" style="font-size:16px;font-weight:700"></div><div id="detail-meta" style="font-size:11px;opacity:.7"></div></div>
   </div>
-  <div style="display:flex;min-height:calc(100vh - 50px)">
+  <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div style="display:flex;min-height:calc(100vh - 52px)">
     <div id="sidebar"></div>
     <div id="main-content"></div>
   </div>
 </div>
 
 <script>
-// DATA
-const FICHES = [];
-const STORAGE_KEY = "oncofiches_annotations";
+const FICHES=[];
+const SK="oncofiches_ann_v2";
+const hp=t=>`<span class="hp">${t}</span>`;
+const hg=t=>`<span class="hg">${t}</span>`;
 
-function loadAnnotations() {
-  try { const d = localStorage.getItem(STORAGE_KEY); return d ? JSON.parse(d) : {}; } catch(e) { return {}; }
-}
-function saveAnnotations(data) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
-}
+function ldA(){try{const d=localStorage.getItem(SK);return d?JSON.parse(d):{}}catch(e){return{}}}
+function svA(d){try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}}
+let ann=ldA(),curF=null,curS=0,sidebarOpen=true;
 
-let annotations = loadAnnotations();
-let currentFiche = null;
-let currentSection = 0;
-let currentCat = "Tous";
-
-// Helper functions
-const hp = t => `<span class="hp">${t}</span>`;
-const hg = t => `<span class="hg">${t}</span>`;
-
-function initFiches() {
-  FICHES.push({
-    id:"estomac", title:"Cancer de l'estomac", category:"Digestif", lastUpdated:"2025-12", color:"#e74c3c",
-    tags:["estomac","gastrique","JOG","HER2","PDL1","FLOT","FOLFOX","trastuzumab","nivolumab","zolbetuximab"],
-    sections: [
-      {title:"Épidémiologie & Facteurs de risque", html:`<h3>Épidémiologie</h3><table class="T"><tr><td style="width:28%;font-weight:700;background:#f8fafc">Incidence</td><td>En diminution mondialement (hors JOG = jonction œsogastrique). Ratio H/F : 2/1. Origine génétique : 10%.</td></tr><tr><td style="font-weight:700;background:#f8fafc">Syndromes</td><td>Lynch (MLH1, PMS2, MSH2, MSH6), Li-Fraumeni, PAF, GAPPS, HCGD (CDH1), Peutz-Jeghers, polypose juvénile. Les 2 + fréquents : <b>Lynch</b> et <b>CDH1</b>.</td></tr><tr><td style="font-weight:700;background:#f8fafc">Survie 5 ans</td><td>60% pN0 | 35% pN1 | 10% pN2</td></tr></table><h4>Facteurs de risque</h4><table class="T"><tr><th style="width:50%">JOG (Europe Ouest)</th><th>Estomac hors cardia (Asie Est)</th></tr><tr><td><ul><li>EBO (endobrachyœsophage)</li><li>Obésité</li></ul></td><td><ul><li><i>H. pylori</i></li><li>Alcool, tabac, sel</li><li>EBV</li><li>Formes familiales, Biermer</li></ul></td></tr></table>`},
-      {title:"Dépistage", html:`<h3>Dépistage</h3><p>Surveillance endoscopique + biopsies <b>/3 ans</b> si : métaplasie intestinale + ATCD familiaux, métaplasie incomplète, <i>H. pylori</i> persistant + gastrite.</p>`},
-      {title:"Bilan initial", html:`<h3>Bilan initial</h3><table class="T"><tr><th style="width:33%">Clinique</th><th style="width:33%">Biologie</th><th>Imagerie</th></tr><tr><td><ul><li>Dysphagie, satiété précoce</li><li>Asthénie, perte de poids</li><li>Score OMS, G8 si >70 ans</li></ul></td><td><ul><li>NFS + martial</li><li>Fonction rénale/hépatique</li><li><b>Uracilémie</b> (DPD)*</li><li>ACE, CA19.9</li></ul><p class="NT">*≥150 ng/mL → CI fluoropyrimidines. 16-150 → adaptation.</p></td><td><ul><li><b>Endoscopie + biopsies</b> (5-10) + HP</li><li><b>Scanner TAP</b></li><li>+/- Écho-endo, TEP, laparoscopie</li><li>ECG + ETT (FEVG)</li></ul></td></tr></table>`},
-      {title:"Anapath & Bio. moléculaire", html:`<h3>Anatomopathologie</h3><table class="T"><tr><th>Lauren</th><th>OMS 2019</th></tr><tr><td>Intestinal, Diffus, Mixte</td><td>Tubuleux, Papillaire, Cellules peu cohésives, Mucineux, Micropapillaire, Stroma lymphoïde, Hépatoïde</td></tr></table><h3>Biologie moléculaire</h3><table class="T"><tr><th>Marqueur</th><th>Indication</th></tr><tr><td><b>HER2</b> (IHC)</td><td>Systématique. 3+ ou 2+ FISH+.</td></tr><tr><td><b>PD-L1</b> (CPS/TAP)</td><td>Systématique. CPS ≥1, ≥5, ≥10 ; TAP ≥5%.</td></tr><tr><td><b>MMR/MSI</b></td><td>Systématique.</td></tr><tr><td><b>Claudine 18.2</b></td><td>Si non résécable. 2+/3+ ≥75%.</td></tr></table>`},
-      {title:"Traitement — Localisé", html:`<h3>Traitement localisé</h3><div class="A"><div class="AT">Stade IA — T1 N0</div><div class="CN"><div class="N Nk"><b>DSM</b> si ADK bien diff., G1-2, <2cm, non ulcéré.</div><div class="AR">↓ sinon</div><div class="N Nr"><b>Chirurgie</b></div></div></div><div class="A"><div class="AT">Stade IB / II / III</div><div class="CN"><div class="N Nx" style="max-width:400px"><b>1. Chimio péri-opératoire</b><br>FLOT 4c pré+4c post. Alt : 5FU/Cisplatine, FOLFOX.</div><div class="AR">↓</div><div class="N Nr" style="max-width:400px"><b>2. Gastrectomie + curage D2</b><br>Distal→partielle. Corps/linite→totale. Min 16 gg.</div></div></div>`},
-      {title:"Traitement — Métastatique", html:`<h3>1ère ligne</h3><p style="text-align:center;font-size:11px">Base : fluoropyrimidine + sel de platine</p><table class="T"><tr><th>Profil</th><th>Traitement</th></tr><tr><td><b>HER2+</b></td><td>Trastuzumab + chimio. CPS≥1 : +Pembrolizumab.</td></tr><tr><td>HER2-, CPS≥5</td><td>Nivolumab + chimio.</td></tr><tr><td>HER2-, CPS≥10</td><td>Pembrolizumab + chimio.</td></tr><tr><td>Claudine 18.2+ CPS<5</td><td>Zolbetuximab + chimio oxa.</td></tr><tr><td>pMMR-MSS, PDL1-, HER2-</td><td>TFOX si éligible.</td></tr></table><h3>2ème ligne</h3><table class="T"><tr><td>Standard</td><td>Ramucirumab + Paclitaxel.</td></tr><tr><td>HER2+ post-Trastu</td><td>T-DXd (Trastuzumab-Deruxtecan).</td></tr></table><h3>3ème ligne +</h3><table class="T"><tr><td>Standard</td><td>Lonsurf®. Alt : Régorafénib, Taxanes.</td></tr></table>`},
-      {title:"Protocoles", html:`<h3>Protocoles</h3><table class="T"><tr><th>Protocole</th><th>Composition</th><th>Rythme</th></tr><tr><td><b>LV5FU2s</b></td><td>AF 400 + 5FU 400 bolus + 5FU 2400/46h</td><td>/14j</td></tr><tr><td><b>FLOT</b></td><td>Docétaxel 50 + Oxa 85 + 5FU 2600/24h + AF 400</td><td>/14j</td></tr><tr><td><b>FOLFOX</b></td><td>LV5FU2s + Oxa 85</td><td>/14j</td></tr><tr><td><b>XELOX</b></td><td>Cap 1000×2/j 14j + Oxa 130</td><td>/21j</td></tr><tr><td><b>TFOX</b></td><td>Docétaxel 50 + Oxa 85 + 5FU 2400/46h + AF 400</td><td>/14j</td></tr><tr><td><b>FOLFIRI</b></td><td>LV5FU2s + Irinotécan 180</td><td>/14j</td></tr><tr><td><b>T-DXd</b></td><td>6,4mg/kg</td><td>/21j</td></tr><tr><td><b>Lonsurf</b></td><td>35mg/m² ×2/j J1-5, J8-12</td><td>/28j</td></tr></table>`},
-      {title:"Surveillance", html:`<h3>Surveillance</h3><table class="T"><tr><td>Scanner TAP</td><td>5 ans. /6-12 sem (méta).</td></tr><tr><td>Post-gastrectomie totale</td><td>Vit B12 1mg /3-12m.</td></tr><tr><td>Post-splénectomie</td><td>Vaccins + Oracilline ≥2 ans.</td></tr></table>`}
-    ]
-  });
-
-  FICHES.push({
-    id:"colon", title:"Cancer du côlon localisé", category:"Digestif", lastUpdated:"2026-02", color:"#2a4d8f",
-    tags:["côlon","colon","FOLFOX","CAPOX","MSI","dMMR","IDEA","PI3K","aspirine","stade II","stade III","Lynch","DPD","CIRCULATE","ATOMIC","CHALLENGE"],
-    sections: [
-      {title:"Épidémiologie & Facteurs de risque", html:`<h3>Épidémiologie</h3><table class="T"><tr><td style="width:28%;font-weight:700;background:#f8fafc">Incidence</td><td>3ème cancer France (~43 000 CCR/an, 65% coliques). ${hp("ESMO : 3ème H, 2ème F, 10% cancers mondiaux.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Mortalité</td><td>2ème cause mortalité cancer France. ${hp("ESMO : 4ème mondiale.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Survie 5 ans</td><td>~63% tous stades. ${hp("ESMO : I 99% | II 68-83% | III 45-65%.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Héréditaire</td><td>2-5% : Lynch 2-4%, PAF ~1%, MUTYH, POLE/POLD1.</td></tr></table><h4>Facteurs de risque</h4><table class="T"><tr><th>Environnementaux</th><th>Haut risque</th></tr><tr><td><ul><li>Obésité, sédentarité, alcool, tabac, viande rouge</li><li>ATCD adénome/CCR, MICI</li></ul></td><td><ul><li>Lynch, PAF, MUTYH, POLE/POLD1</li><li>Peutz-Jeghers, polypose juvénile</li></ul></td></tr></table>`},
-      {title:"Dépistage", html:`<h3>Dépistage</h3><table class="T"><tr><th>Population</th><th>Méthode</th><th>Rythme</th></tr><tr><td><b>Risque moyen</b> 50-74 ans</td><td>${hp("FIT (ESMO).")} Coloscopie si +.</td><td>${hp("FIT /1-3 ans. Colo /10 ans (ESMO).")}</td></tr><tr><td><b>Haut risque</b></td><td>Coloscopie + chromo-endo</td><td>${hg("Lynch /1-2 ans dès 20 ans. PAF /2 ans. MUTYH annuel (TNCD/GENMAD).")}</td></tr></table><div class="I"><b>Consultation oncogénétique :</b> <40 ans. MSI/dMMR. ≥15 polypes >60 ans. ≥10 <60 ans. ≥5 avancés + critères.</div>`},
-      {title:"Bilan initial", html:`<h3>Bilan initial</h3><table class="T"><tr><th style="width:33%">Clinique</th><th style="width:33%">Biologie</th><th>Imagerie</th></tr><tr><td><ul><li>Troubles transit, rectorragies, méléna</li><li>Anémie ferriprive, perte de poids</li><li>Score OMS</li><li>${hg("G8 si >75 ans (TNCD). ≤14 → oncogériatrie.")}</li></ul></td><td><ul><li>NFS + martial, fonction rénale/hépatique</li><li>Albuminémie</li><li><b>Uracilémie</b> (DPD)*</li><li>ACE : ${hg("non systématique (TNCD)")} / ${hp("recommandé (ESMO)")}</li></ul><div class="WA"><b>*Obligatoire avant fluoropyrimidines :</b><br>≥150 ng/mL → CI. 16-150 → adaptation.</div></td><td><ul><li><b>Coloscopie totale</b> (≥10-15 biopsies) ${hg("+ tatouage (TNCD)")}</li><li><b>Scanner TAP</b> injecté</li><li>+/- IRM hépatique, IRM rectale</li><li>${hp("TEP non recommandé routine (ESMO)")}</li></ul></td></tr></table>`},
-      {title:"Anapath & Bio. moléculaire", html:`<h3>CR anatomopathologique</h3><table class="T"><tr><td style="width:50%"><ul><li>Type histo (90% ADK), grade</li><li>pTNM 8ème éd.</li><li>Marges, <b>≥12 gg</b></li><li>Invasion vasculaire, lymphatique, péri-nerveuse</li></ul></td><td><ul><li>Dépôts tumoraux (N1c)</li><li>Tumor budding (grade 1-3)</li><li>Perforation</li><li><b>MMR/MSI obligatoire</b></li></ul></td></tr></table><h3>Biologie moléculaire</h3><table class="T"><tr><th>Marqueur</th><th>Indication</th></tr><tr><td><b>MMR/MSI</b></td><td><b>SYSTÉMATIQUE.</b> ~20% stade II, ~12% stade III dMMR/MSI.</td></tr><tr><td><b>BRAF V600E</b></td><td>Si extinction MLH1 → Lynch vs sporadique.</td></tr><tr><td><b>KRAS/NRAS</b></td><td>Si avancé/métastatique (anti-EGFR).</td></tr><tr style="background:#f0fdf4"><td><b style="color:var(--gn)">Voie PI3K</b></td><td>${hg("<b>NOUVEAU TNCD 2026.</b> → aspirine 160mg/j × 3 ans si muté (grade B, ALASSCA).")}</td></tr><tr><td><b>ctDNA</b></td><td>Essais CIRCULATE. Non recommandé routine.</td></tr></table>`},
-      {title:"Classification TNM", html:`<h3>TNM 8ème éd.</h3><table class="T"><tr class="T-hdr"><th colspan="2">T — Tumeur</th></tr><tr><td><b>Tis</b></td><td>In situ</td></tr><tr><td><b>T1-T2</b></td><td>Sous-muqueuse / Musculeuse</td></tr><tr><td><b>T3</b></td><td>Sous-séreuse</td></tr><tr><td><b>T4a/b</b></td><td>Perforation péritoine (a) / Organe voisin (b)</td></tr><tr class="T-hdr"><th colspan="2">N — Ganglions</th></tr><tr><td><b>N0</b></td><td>Pas de métastase gg</td></tr><tr><td><b>N1a/b/c</b></td><td>1 gg / 2-3 gg / Dépôts tumoraux</td></tr><tr><td><b>N2a/b</b></td><td>4-6 gg / ≥7 gg</td></tr><tr class="T-hdr"><th colspan="2">Stades</th></tr><tr><td><b>0 / I</b></td><td>Tis N0 / T1-2 N0</td></tr><tr><td><b>IIA/IIB/IIC</b></td><td>T3 N0 / T4a N0 / T4b N0</td></tr><tr><td><b>IIIA/B/C</b></td><td>T1-2 N1 → T4b N1-2</td></tr></table>`},
-      {title:"Résection endoscopique & Chirurgie", html:`<h3>Résection endoscopique — pTis / pT1</h3><table class="T"><tr><th style="background:#dcfce7">✅ Curative → surveillance</th><th style="background:#fee2e2">⚠ Chirurgie complémentaire</th></tr><tr><td><b>Tis :</b> risque gg <1%.<br><b>T1a (<1000µm) :</b> R0 + bien diff. + pas emboles + pas budding HG → <3%.<br><b>Pédiculés :</b> Haggitt 1-2 quasi nul.</td><td><b>Haut risque :</b> sm ≥1000µm, emboles (risque 20-30%), peu diff., budding HG.<br><b>Pédiculés :</b> Haggitt 3 >3000µm, Haggitt 4 → chirurgie.</td></tr></table><h3>Chirurgie</h3><table class="T"><tr><th style="width:28%">Principe</th><th>Détails</th></tr><tr><td><b>Marges</b></td><td>≥5cm.</td></tr><tr><td><b>Curage</b></td><td>${hg("<b>RÉF TNCD : D2.</b> OPT : D3 si suspicion gg.")} ${hp("ESMO : ≥12 gg.")}</td></tr><tr><td><b>Voie</b></td><td>Cœlioscopie T1-T3 (grade A).</td></tr><tr><td><b>Résections</b></td><td>Droit→colectomie droite. Transverse→droite étendue. Gauche→angulaire. Sigmoïde→sigmoïdectomie.</td></tr><tr><td><b>T4</b></td><td>Monobloc. ${hg("Chimio néo-adj si inextirpable (TNCD).")}</td></tr><tr><td><b>Occlusion</b></td><td>Colostomie privilégiée. ${hg("Prothèse non 1ère intention (TNCD).")}</td></tr></table>`},
-      {title:"Arbres décisionnels", html:`<h3>Arbres décisionnels</h3>
-<div class="A"><div class="AT">Stade 0 et I</div><div class="CN"><div class="N">Coloscopie diagnostique</div><div class="AR">↓</div><div class="R"><div class="CN"><div class="BL">pTis/pT1 sans FMP</div><div class="N Nk"><b>Exérèse endo</b></div><div class="AR">↓</div><div class="N Nk">Surveillance</div></div><div class="CN"><div class="BL">pT1+FMP ou ≥pT2</div><div class="N Nr"><b>Chirurgie + curage D2</b></div><div class="AR">↓</div><div class="N Nk">Pas de chimio adj.</div></div></div></div></div>
-
-<div class="A"><div class="AT">Stade II — T3-T4, N0</div><div class="CN"><div class="N">Exérèse curative stade II</div><div class="AR">↓</div><div class="R"><div class="CN"><div class="N Nk"><b>RÉFÉRENCE</b><br>Pas de chimio</div></div><div class="CN"><div class="N No" style="max-width:300px"><b>OPTIONS</b> selon FMP<br><small>pT4, MSI/MSS, diff., gg<12, perforation, emboles, CTI</small></div><div class="AR">↓</div><div class="R"><div class="N Nk" style="font-size:10px"><b>pMMR/MSS</b><br>0-1 FMP<br><b>LV5FU2s/Cap 6m</b></div><div class="N No" style="font-size:10px"><b>pMMR/MSS</b><br>>1 FMP<br><b>CAPOX 3m</b></div><div class="N Nx" style="font-size:10px"><b>pT4b</b><br><b>FOLFOX 6m</b><br>ou <b>CAPOX 3m</b></div></div></div></div></div><div class="I"><b>dMMR/MSI stade II :</b> pas de chimio sauf pT4b. Fluoropyrimidine seule NON indiquée.</div><div class="NW">${hg("<b>TNCD 2026 :</b>")} Aspirine 160mg/j × 3 ans si PI3K muté (grade B). APA prescrite (grade A).</div></div>
-
-<div class="A"><div class="AT">Stade III — tout T, N1-N2</div><div class="CN"><div class="N">Exérèse curative stade III</div><div class="AR">↓</div><div class="N Nr"><b>Chimio adjuvante</b><br><small>Débuter <8 sem postop. DPD obligatoire. APA (grade A).</small></div><div class="AR">↓</div></div><table class="T"><tr><th style="width:35%">Sous-groupe</th><th style="text-align:center">CAPOX</th><th style="text-align:center">FOLFOX6m</th></tr><tr><td><b>Bas risque</b> (T1-3, N1)</td><td style="background:#dcfce7;text-align:center"><b>3 mois</b> STANDARD</td><td style="text-align:center"><b>6 mois</b> (alt. 3m)</td></tr><tr><td><b>Haut risque</b> (T4/N2)</td><td style="text-align:center"><b>6 mois</b> (alt. 3m)</td><td style="background:#fee2e2;text-align:center"><b>6 mois</b> (<b style="color:#dc2626">PAS 3m</b>)</td></tr></table><div class="R"><div class="N Nr" style="font-size:10px"><b>>70 ans</b><br>Fluoropyrimidine 6m<br>OPT : FOLFOX/CAPOX</div><div class="N Nx" style="font-size:10px"><b>CI oxaliplatine</b><br>LV5FU2s/Cap 6m<br>CI DPD : TOMOX/TAS-OX</div><div class="N Nk" style="font-size:10px"><b style="color:var(--gn)">dMMR/MSI III</b><br>FOLFOX 3-6m<br><b>OPT 2026 :</b> +Atézo 12m</div></div><div class="W">⚠ Arrêt oxaliplatine dès neuropathie ≥ grade 2.</div><div class="NW">${hg("<b>TNCD 2026 :</b>")} Aspirine si PI3K muté. APA = RÉFÉRENCE (CHALLENGE). Adaptation oxaliplatine si sarcopénie.</div></div>`},
-      {title:"Traitement par stade", html:`<h3>Récapitulatif par stade</h3><div class="A"><div class="AT">Stade 0 et I</div><table class="T"><tr><th>Stade</th><th>Traitement</th><th>Adjuvant</th></tr><tr><td>0</td><td>Exérèse endo</td><td>Aucun</td></tr><tr><td>I</td><td>Chirurgie ou exérèse endo curative</td><td>Aucun</td></tr></table></div><div class="A"><div class="AT">Stade II — Adjuvant</div><p style="text-align:center"><b>RÉF : Pas de chimio.</b></p><table class="T"><tr><th>Profil</th><th>Chimio</th></tr><tr><td>pMMR/MSS, 0-1 FMP</td><td>LV5FU2s ou Cap 6m</td></tr><tr><td>pMMR/MSS, >1 FMP</td><td>CAPOX 3m</td></tr><tr><td>pT4b</td><td>FOLFOX 6m ou CAPOX 3m</td></tr><tr><td>dMMR/MSI (sans pT4b)</td><td><b>Pas de chimio.</b></td></tr></table></div><div class="A"><div class="AT">Stade III — Adjuvant</div><table class="T"><tr><th>Sous-groupe</th><th>CAPOX</th><th>FOLFOX6m</th></tr><tr><td><b>Bas risque</b> (T1-3 N1)</td><td style="background:#dcfce7;text-align:center"><b>3m</b></td><td style="text-align:center"><b>6m</b></td></tr><tr><td><b>Haut risque</b> (T4/N2)</td><td style="text-align:center"><b>6m</b></td><td style="background:#fee2e2;text-align:center"><b>6m</b></td></tr></table><table class="T"><tr><th>Situation</th><th>Traitement</th></tr><tr><td>>70 ans</td><td>Fluoropyrimidine 6m. OPT : FOLFOX/CAPOX.</td></tr><tr><td>CI oxaliplatine</td><td>LV5FU2s/Cap 6m.</td></tr><tr><td>CI DPD complet</td><td>TOMOX ou TAS-OX.</td></tr><tr><td>dMMR/MSI III</td><td>FOLFOX 3-6m. ${hg("OPT 2026 : +Atézo 12m (ATOMIC+).")}</td></tr></table></div>`},
-      {title:"Protocoles", html:`<h3>Protocoles</h3><table class="T"><tr class="T-hdr"><th colspan="3">Fluoropyrimidines seules</th></tr><tr><th>Protocole</th><th>Composition</th><th style="width:14%">Rythme</th></tr><tr><td><b>LV5FU2s</b></td><td>AF 400mg/m² 2h + 5FU 400 bolus + 5FU 2400/46h</td><td>/14j</td></tr><tr><td><b>Capécitabine</b></td><td>2500mg/m²/j per os, 2 sem/3</td><td>/21j (8c=6m)</td></tr><tr class="T-hdr"><th colspan="3">Avec oxaliplatine</th></tr><tr><td><b>FOLFOX6m</b></td><td>Oxa 85 + LV5FU2s</td><td>/14j (12c=6m)</td></tr><tr><td><b>CAPOX</b></td><td>Oxa 130 J1 + Cap 2000/j J2-15</td><td>/21j (4c=3m)</td></tr><tr class="T-hdr"><th colspan="3">CI fluoropyrimidines</th></tr><tr><td><b>TOMOX</b></td><td>Raltitrexed 3 + Oxa 130</td><td>/21j</td></tr><tr><td><b>TAS-OX</b></td><td>Oxa 85 + Lonsurf 35×2/j J1-5</td><td>/14j</td></tr><tr class="T-hdr"><th colspan="3">Immunothérapie (${hg("OPTION TNCD 2026")})</th></tr><tr><td><b>FOLFOX6m + Atézo</b></td><td>FOLFOX6m + Atézolizumab 840mg ×12c, puis Atézo seul ×12c. Total 12m.</td><td>/14j</td></tr><tr class="T-hdr"><th colspan="3">Autres</th></tr><tr><td><b>FOLFIRI</b></td><td>LV5FU2s + Irinotécan 180. <i>PAS d'efficacité adj côlon.</i></td><td>/14j</td></tr></table><div class="W"><b>Rappels :</b> Irinotécan, Cétuximab, Bévacizumab = PAS de bénéfice adj côlon.</div>`},
-      {title:"Surveillance", html:`<h3>Surveillance — Stades II-III</h3><p class="NT">Stade I : surveillance endo seule. Durée : 5 ans.</p><table class="T"><tr><th>Examen</th><th>Rythme</th><th>Source</th></tr><tr><td><b>Clinique</b></td><td>/3m × 3a, /6m × 2a</td><td>${hg("TNCD")} + ${hp("ESMO")}</td></tr><tr><td><b>Écho abdo</b></td><td>/3m × 3a, /6m × 2a</td><td>${hg("RÉF TNCD.")}</td></tr><tr><td><b>Rx thorax</b></td><td>/6m × 3a, annuelle × 2a</td><td>${hg("RÉF TNCD.")}</td></tr><tr><td><b>Scanner TAP</b></td><td>${hg("OPT TNCD si T4/N2.")} ${hp("ESMO : /6-12m × 3a.")}</td><td></td></tr><tr><td><b>ACE</b></td><td>${hg("<b>TNCD 2026 : PLUS recommandé</b> (PRODIGE 13-).")} ${hp("ESMO : /3-6m × 3a.")}</td><td></td></tr><tr><td><b>Coloscopie</b></td><td>1a, 3a, 5a.</td><td>Lynch : /1-2a.</td></tr><tr><td><b>TEP</b></td><td>Non systématique.</td><td>Si suspicion récidive.</td></tr></table>`},
-      {title:"Essais cliniques", html:`<h3>Essais cliniques (France)</h3><table class="T"><tr><th>Essai</th><th>Description</th></tr><tr><td><b>CIRCULATE (PRODIGE 70)</b></td><td>Adj stade II basé sur ctDNA.</td></tr><tr><td><b>CIRCULATE PAC (PRODIGE 88)</b></td><td>Ttt si ctDNA+ après chimio adj stade III.</td></tr><tr><td><b>PREMICES (PRODIGE 84)</b></td><td>Pembrolizumab néo-adj + watch-and-wait, dMMR/MSI.</td></tr><tr><td><b>NEORAF</b></td><td>Encorafénib + Cétuximab néo-adj si BRAF V600E.</td></tr><tr><td><b>COnCERTO</b></td><td>FOLFOX néo-adj vs non, cancer obstructif.</td></tr><tr><td><b>ADAGE</b></td><td>Chimio adj ≥70 ans, stade III.</td></tr><tr><td><b>ASPIK</b></td><td>Aspirine si PIK3CA muté.</td></tr></table><p class="NT">${hp("■ ROSE = ESMO (Argilés 2020).")} ${hg("■ VERT = TNCD chapitre 3, 13/02/2026.")}</p>`}
-    ]
-  });
+function toggleSidebar(){
+  const sb=document.getElementById("sidebar");
+  const ov=document.getElementById("sidebar-overlay");
+  if(sb.classList.contains("closed")){sb.classList.remove("closed");ov.classList.add("open");sidebarOpen=true}
+  else{sb.classList.add("closed");ov.classList.remove("open");sidebarOpen=false}
 }
 
-// RENDERING
-function renderList() {
-  document.getElementById("list").style.display = "block";
-  document.getElementById("detail").style.display = "none";
-  renderCats();
+function initFiches(){
+FICHES.push({
+id:"estomac",title:"Cancer de l'estomac",category:"Digestif",lastUpdated:"2025-12",color:"#e74c3c",
+sections:[
+{title:"Épidémiologie & Facteurs de risque",html:`<h3>Épidémiologie</h3><table class="T"><tr><td style="width:28%;font-weight:700;background:#f8fafc">Incidence</td><td>En diminution mondialement (hors JOG = jonction œsogastrique). Ratio H/F : 2/1. Origine génétique : 10%.</td></tr><tr><td style="font-weight:700;background:#f8fafc">Syndromes héréditaires</td><td>Lynch (MLH1, PMS2, MSH2, MSH6), Li-Fraumeni, PAF (polypose adénomateuse familiale), GAPPS (polypose glandulaire gastrique), HCGD (forme héréditaire des cancers gastriques diffus, mutation CDH1), Peutz-Jeghers, polypose juvénile.<br>Les 2 plus fréquents : <b>Lynch</b> et <b>mutation CDH1</b>.</td></tr><tr><td style="font-weight:700;background:#f8fafc">Survie à 5 ans<br>(corps et proximal)</td><td>60% si pN0 (pas d'envahissement ganglionnaire)<br>35% si pN1 (1-2 ganglions envahis)<br>10% si pN2 (3-6 ganglions envahis)</td></tr></table><h4>Facteurs de risque</h4><table class="T"><tr><th style="width:50%">JOG (Europe de l'Ouest, Amérique du Nord)</th><th>Estomac hors cardia (Asie de l'Est, Amérique du Sud — 80% des tumeurs)</th></tr><tr><td><ul><li>EBO (endobrachyœsophage = métaplasie de Barrett)</li><li>Obésité</li></ul></td><td><ul><li><i>Helicobacter pylori</i></li><li>Alcool, tabac, sel</li><li>EBV (virus d'Epstein-Barr)</li><li>Formes familiales</li><li>Maladie de Biermer (anémie pernicieuse)</li><li>Gastrectomie partielle ancienne</li><li>Origine ethnique</li></ul></td></tr></table>`},
+{title:"Dépistage",html:`<h3>Dépistage</h3><p>Surveillance endoscopique avec biopsies guidées <b>tous les 3 ans</b> si :</p><ul><li>Métaplasie intestinale ET antécédents familiaux de cancer gastrique</li><li>Métaplasie intestinale de type incomplet</li><li>Infection persistante à <i>H. pylori</i> associée à une gastrite</li></ul>`},
+{title:"Bilan initial",html:`<h3>Bilan initial</h3><table class="T"><tr><th style="width:33%">Clinique</th><th style="width:33%">Biologie</th><th>Imagerie</th></tr><tr><td><ul><li>Dysphagie, satiété précoce</li><li>Asthénie, perte de poids</li><li>Score OMS (état général)</li><li>Score G8 si > 70 ans</li><li>Oncogériatrie si G8 < 14</li></ul></td><td><ul><li>NFS (numération formule sanguine) + bilan martial</li><li>Fonction rénale et hépatique</li><li><b>Uracilémie</b> (déficit en DPD = dihydropyrimidine déshydrogénase)*</li><li>Bilan nutritionnel</li><li>ACE (antigène carcino-embryonnaire) et CA19.9 : utiles pour le suivi</li></ul><p class="NT">* ≥150 ng/mL → déficit complet en DPD → fluoropyrimidines contre-indiquées.<br>16-150 ng/mL → déficit partiel → adaptation posologique.</p></td><td><ul><li><b>Endoscopie + biopsies</b> (5 à 10) + recherche HP + chromo-endoscopie virtuelle gastrique. Linite : sensibilité biopsies 50%.</li><li><b>Scanner TAP</b> (thoraco-abdomino-pelvien) avec injection</li><li>+/- <b>Écho-endoscopie</b> : T et N si opérable, biopsies profondes si linite</li><li>+/- <b>TEP-scanner</b> (négatif dans les mucineux ou type diffus)</li><li>+/- <b>Laparoscopie exploratrice</b> si cT3/cT4, type diffus</li><li>ECG + ETT (échographie cardiaque) avec FEVG</li><li>EFR (épreuves fonctionnelles respiratoires) si thoracotomie</li><li>+/- IRM hépatique si doute</li></ul></td></tr></table>`},
+{title:"Anapath & Bio. moléculaire",html:`<h3>Anatomopathologie</h3><table class="T"><tr><th style="width:50%">Classification de Lauren</th><th>Classification OMS 2019 (90% adénocarcinomes)</th></tr><tr><td><ul><li>Type intestinal</li><li>Type diffus</li><li>Mixte</li></ul></td><td>Tubuleux, Papillaire, Cellules peu cohésives, Mucineux, Mixte, Micropapillaire, Stroma lymphoïde, Hépatoïde.<br><span class="NT">Formes rares : carcinome adénosquameux, lymphome du MALT, GIST (tumeur stromale), TNE (tumeur neuro-endocrine).</span></td></tr></table><h3>Biologie moléculaire</h3><table class="T"><tr><th>Marqueur</th><th>Technique</th><th>Indication</th></tr><tr><td><b>HER2</b></td><td>IHC (immunohistochimie)</td><td>Systématique. Positif si 3+ ou 2+ avec FISH positive.</td></tr><tr><td><b>PD-L1</b></td><td>IHC : score CPS ou TAP</td><td>Systématique. Seuils : CPS ≥ 1, ≥ 5, ≥ 10 ou TAP ≥ 5%.</td></tr><tr><td><b>MMR / MSI</b></td><td>IHC ou biologie moléculaire</td><td>Systématique.</td></tr><tr><td><b>Claudine 18.2</b></td><td>IHC</td><td>Si tumeur non résécable. Positif si 2+/3+ dans ≥ 75% des cellules.</td></tr></table><p class="NT">4 sous-types moléculaires : EBV+ | MSI-H | Stabilité génomique | Instabilité chromosomique.<br>Particularité JOG : classification de Siewert — type 1 traité comme cancer de l'œsophage.</p>`},
+{title:"Traitement — Localisé",html:`<h3>Traitement localisé</h3><div class="A"><div class="AT">Stade IA — T1 N0 M0</div><div class="CN"><div class="N Nk"><b>Résection endoscopique (DSM = dissection sous-muqueuse)</b><br>si ADK bien différencié, limité à la muqueuse, grade 1-2, < 2 cm, non ulcéré. Caractère curatif validé en RCP (critères eCURA).</div><div class="AR">↓ sinon</div><div class="N Nr"><b>Résection chirurgicale</b></div></div></div><div class="A"><div class="AT">Stade IB / II / III</div><div class="CN"><div class="N Nx" style="max-width:420px"><b>1. Chimiothérapie péri-opératoire</b><br>FLOT : 4 cycles avant + 4 après (standard). Alt : 5FU/Cisplatine, FOLFOX (4-6 cures pré/post).<br>Si dMMR/MSI : immunothérapie à discuter.<br>Si chirurgie d'emblée : RCT adjuvante (LV5FU2) ou CT adjuvante (FOLFOX/XELOX) sauf MSI-H.</div><div class="AR">↓</div><div class="N Nr" style="max-width:420px"><b>2. Gastrectomie + curage D2</b><br>Distal non linitique (antre) → gastrectomie partielle. Marges 3 cm (intestinal) / 5 cm (infiltrant).<br>Corps/proximal/linite → gastrectomie totale. Min 16 ganglions analysés.<br>Oral Impact® 5-7 jours avant chirurgie (immunonutrition).</div></div></div>`},
+{title:"Traitement — Métastatique",html:`<h3>1ère ligne métastatique</h3><p style="text-align:center;font-size:12px">Base = doublet fluoropyrimidine (5-FU ou capécitabine) + sel de platine (cisplatine ou oxaliplatine). FOLFOX ou XELOX.</p><table class="T"><tr><th>Profil moléculaire</th><th>Traitement</th></tr><tr style="background:#fce4ec"><td><b>HER2 positif</b> (3+ ou 2+ FISH+)</td><td>Trastuzumab + bi-chimiothérapie. ETT/3 mois (surveillance FEVG).<br>Si CPS ≥ 1 : ajout de Pembrolizumab.</td></tr><tr><td>HER2 négatif, PD-L1 CPS ≥ 5</td><td>Nivolumab + chimiothérapie (XELOX ou FOLFOX).</td></tr><tr><td>HER2 négatif, PD-L1 CPS ≥ 10</td><td>Pembrolizumab + chimiothérapie. ${hp("AMM si CPS ≥ 1 mais non remboursé.")}</td></tr><tr><td>HER2 négatif, TAP ≥ 5%</td><td>Tislelizumab + bi-chimiothérapie. ${hp("AMM, remboursement en cours.")}</td></tr><tr style="background:#e8f5e9"><td>Claudine 18.2+ (≥ 75%), CPS < 5</td><td>Zolbetuximab + bi-chimiothérapie oxaliplatine. ${hp("AMM, remboursement en cours.")}</td></tr><tr><td>dMMR (déficit réparation mésappariements)</td><td>Pembrolizumab ? Nivolumab + Ipilimumab ? ${hp("Pas d'AMM/remboursement anti-PD1 en France.")}</td></tr><tr><td>pMMR-MSS, PD-L1 négatif, HER2 négatif</td><td>Triplet TFOX si éligible (< 70 ans et/ou PS 0).</td></tr></table><h3>2ème ligne</h3><table class="T"><tr><td><b>Standard</b></td><td>Ramucirumab + Paclitaxel. ${hp("Ramucirumab : AMM sans remboursement.")}</td></tr><tr><td>Si HER2+ traité par Trastuzumab en L1</td><td>Trastuzumab-Deruxtecan (T-DXd). ${hp("Remboursement dès L3.")}</td></tr><tr><td>Si MSI-H/dMMR</td><td>Pembrolizumab. ${hp("AMM sans remboursement.")}</td></tr></table><h3>3ème ligne +</h3><table class="T"><tr><td>Standard</td><td>Trifluridine-Tipiracil (Lonsurf®). Alternatives : Régorafénib, Taxanes, Irinotécan, FOLFIRI.</td></tr><tr><td>Si HER2+</td><td>Trastuzumab-Deruxtecan.</td></tr></table>`},
+{title:"Protocoles",html:`<h3>Protocoles de chimiothérapie</h3><table class="T"><tr><th>Protocole</th><th>Composition</th><th style="width:13%">Rythme</th></tr><tr><td><b>LV5FU2 simplifié</b></td><td>Acide folinique (AF) 400 mg/m² en 2h + 5-FU 400 mg/m² bolus + 5-FU 2400 mg/m² en 46h</td><td>/14 jours</td></tr><tr><td><b>FOLFOX</b></td><td>LV5FU2s + Oxaliplatine 85 mg/m² en 2h</td><td>/14 jours</td></tr><tr><td><b>XELOX (= CAPOX)</b></td><td>Capécitabine 1000 mg/m² × 2/jour pendant 14 jours + Oxaliplatine 130 mg/m² J1</td><td>/21 jours</td></tr><tr><td><b>FLOT</b></td><td>Docétaxel 50 mg/m² + Oxaliplatine 85 mg/m² + 5-FU 2600 mg/m² sur 24h + AF 400 mg/m²</td><td>/14 jours</td></tr><tr><td><b>TFOX (= FLOT modifié)</b></td><td>Docétaxel 50 + Oxaliplatine 85 + 5-FU 2400/46h + AF 400</td><td>/14 jours</td></tr><tr><td><b>5FU-Cisplatine-Trastuzumab</b></td><td>Trastuzumab 8→6 mg/kg + 5-FU 800 mg/m² J1-J5 + Cisplatine 80 mg/m² J2</td><td>/21 jours</td></tr><tr><td><b>FOLFOX-Nivolumab</b></td><td>Nivolumab 240 mg IV J1 + FOLFOX</td><td>/14 jours</td></tr><tr><td><b>XELOX-Pembrolizumab</b></td><td>Pembrolizumab 200 mg IV J1 + XELOX</td><td>/21 jours</td></tr><tr><td><b>FOLFOX/XELOX + Zolbetuximab</b></td><td>Zolbetuximab 800→600 mg/m² /3 semaines + chimiothérapie</td><td>Variable</td></tr><tr><td><b>Ramucirumab-Paclitaxel</b></td><td>Ramucirumab 8 mg/kg J1,J15 + Paclitaxel 80 mg/m² J1,J8,J15</td><td>/28 jours</td></tr><tr><td><b>FOLFIRI</b></td><td>LV5FU2s + Irinotécan 180 mg/m² en 90 min</td><td>/14 jours</td></tr><tr><td><b>Trastuzumab-Deruxtecan</b></td><td>T-DXd 6,4 mg/kg en 1h30 (C1) puis 30 min</td><td>/21 jours</td></tr><tr><td><b>Trifluridine/Tipiracil (Lonsurf®)</b></td><td>35 mg/m² × 2/jour per os J1-J5 puis J8-J12</td><td>/28 jours</td></tr></table><p class="NT"><b>Mécanismes :</b> Ramucirumab = anti-VEGFR2. T-DXd = ADC anti-HER2 + inhibiteur topoisomérase I. Zolbetuximab = anti-claudine 18.2 (jonctions serrées). Lonsurf = trifluridine + tipiracil (analogue nucléosidique + inhibiteur thymidine phosphorylase).</p>`},
+{title:"Diététique & Surveillance",html:`<h3>Diététique</h3><table class="T"><tr><td style="width:30%;font-weight:700">Olanzapine 2,5 mg</td><td>À l'initiation de la chimiothérapie pour lutter contre l'anorexie et la perte de poids.</td></tr><tr><td style="font-weight:700">Support diététique</td><td>Surveillance des minéraux et vitamines. Consultation diététique spécialisée.</td></tr></table><h3>Surveillance</h3><table class="T"><tr><th>Examen</th><th>Rythme</th></tr><tr><td><b>Scanner TAP</b></td><td>Pendant 5 ans (localisé). Toutes les 6-12 semaines (métastatique).</td></tr><tr><td><b>Post-gastrectomie totale</b></td><td>Vitamine B12 : 1 mg tous les 3 à 12 mois +/- folates.</td></tr><tr><td><b>Post-splénectomie</b></td><td>Vaccin pneumococcique : Prévenar 13® puis Pneumo 23® (8 semaines après, rappel tous les 5 ans).<br>Vaccin anti-méningocoque (rappel tous les 5 ans). Vaccin anti-Haemophilus (rappel à 10 ans).<br>Oracilline® 1 MUI (million d'unités internationales) matin et soir, au moins 2 ans.</td></tr></table>`}
+]});
+
+FICHES.push({
+id:"colon",title:"Cancer du côlon localisé",category:"Digestif",lastUpdated:"2026-02",color:"#2a4d8f",
+sections:[
+{title:"Épidémiologie & Facteurs de risque",html:`<h3>Épidémiologie</h3><table class="T"><tr><td style="width:28%;font-weight:700;background:#f8fafc">Incidence</td><td>3ème cancer en France (20% de tous les cancers). Environ 43 000 nouveaux cas de cancers colorectaux par an dont 65% de localisation colique.<br>${hp("ESMO : CCR (cancer colorectal) = 3ème tumeur chez l'homme, 2ème chez la femme, 10% de tous les cancers mondiaux. Incidence 25% plus élevée chez les hommes.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Mortalité</td><td>2ème cause de mortalité par cancer en France (~17 000 décès/an).<br>${hp("ESMO : 4ème cause de décès par cancer dans le monde (> 600 000 décès/an). Mortalité en diminution, surtout chez les femmes.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Survie globale à 5 ans</td><td>~63% tous stades confondus.<br>${hp("ESMO : Stade I : 99% | Stade II : 68-83% | Stade III : 45-65%.")}</td></tr><tr><td style="font-weight:700;background:#f8fafc">Âge</td><td>~70% des patients ont > 65 ans. Maladie rare avant 40 ans, mais incidence en augmentation dans le groupe 40-44 ans.</td></tr><tr><td style="font-weight:700;background:#f8fafc">Formes héréditaires</td><td>2-5% de tous les CCR :<br>• Syndrome de Lynch (HNPCC = cancer colorectal héréditaire non polyposique, gènes MLH1, MSH2, MSH6, PMS2) : 2-4%.<br>• PAF (polypose adénomateuse familiale, gène APC) : ~1%.<br>• Polypose associée à MUTYH (transmission autosomique récessive).<br>• Mutations POLE / POLD1 (rares, autosomique dominant).</td></tr></table><h4>Facteurs de risque</h4><table class="T"><tr><th style="width:50%">Facteurs environnementaux et terrain</th><th>Populations à haut risque (dépistage spécifique)</th></tr><tr><td><ul><li>Obésité, sédentarité</li><li>Alcool, tabac</li><li>Alimentation riche en viande rouge</li><li>Antécédent personnel d'adénome ou de CCR</li><li>MICI = maladies inflammatoires chroniques de l'intestin (maladie de Crohn, RCH = rectocolite hémorragique)</li><li>Déséquilibre du microbiote intestinal</li></ul></td><td><ul><li>Antécédent familial significatif de CCR ou d'adénome</li><li>Syndrome de Lynch (MLH1, MSH2, MSH6, PMS2)</li><li>PAF (gène APC) et variants</li><li>Polypose associée à MUTYH</li><li>Mutations POLE / POLD1</li><li>Syndrome de Peutz-Jeghers</li><li>Polypose juvénile</li></ul><p class="NT">Variantes du syndrome de Lynch : Muir-Torre (+ tumeurs sébacées cutanées), Turcot (+ tumeurs du SNC = système nerveux central).</p></td></tr></table>`},
+{title:"Dépistage",html:`<h3>Dépistage</h3><table class="T"><tr><th style="width:25%">Population</th><th style="width:35%">Méthode</th><th>Rythme</th></tr><tr><td><b>Risque moyen</b><br>(50-74 ans)</td><td>${hp("FIT (Fecal Immunochemical Test = test immunologique fécal). Supérieur au gFOBT (test au gaïac) en termes de détection et de valeur prédictive positive. ESMO.")}<br>Coloscopie complète si FIT positif.</td><td>${hp("FIT tous les 1 à 3 ans maximum (ESMO).")}<br>${hp("Coloscopie de référence tous les 10 ans si négative (ESMO).")}</td></tr><tr><td><b>Haut risque</b><br>(Lynch, PAF, MICI, ATCD familiaux)</td><td>Coloscopie avec chromo-endoscopie (coloration à l'indigo-carmin pour Lynch).</td><td>${hg("Lynch : tous les 1-2 ans dès 20 ans (TNCD / GENMAD 2017).")}<br>${hg("PAF après anastomose iléo-anale : tous les 2 ans. Si anastomose iléo-rectale : annuel (GENMAD 2021).")}<br>${hg("Polypose MUTYH : annuel (GENMAD 2009).")}</td></tr></table><div class="I"><b>Indications de consultation d'oncogénétique (TNCD, accord d'experts) :</b><br>• Patient < 40 ans avec CCR.<br>• Phénotype MSI (instabilité des microsatellites) ou dMMR (déficit de réparation des mésappariements) — sauf si extinction MLH1 avec hyperméthylation du promoteur MLH1 et/ou mutation BRAF V600E, sans histoire familiale évocatrice.<br>• ≥ 15 polypes adénomateux au-delà de 60 ans.<br>• ≥ 10 polypes adénomateux avant 60 ans ou avec histoire familiale de CCR.<br>• ≥ 5 polypes adénomateux avancés (> 1 cm, dysplasie de haut grade) avec critères additionnels (< 40 ans, CCR MSS avant 60 ans, adénomes duodénaux, atteinte sébacée cutanée).</div>`},
+{title:"Bilan initial",html:`<h3>Bilan initial</h3><table class="T"><tr><th style="width:33%">Clinique</th><th style="width:33%">Biologie</th><th>Imagerie</th></tr><tr><td><ul><li>Troubles du transit, douleurs abdominales</li><li>Rectorragies (sang rouge), méléna (selles noires)</li><li>Anémie ferriprive (par carence en fer), asthénie</li><li>Perte de poids</li><li>Score OMS (état général, 0 à 4)</li><li>${hg("G8 si > 75 ans (TNCD). Si G8 ≤ 14 → consultation d'oncogériatrie.")}</li></ul></td><td><ul><li>NFS (numération formule sanguine) + bilan martial (fer, ferritine, coefficient de saturation de la transferrine)</li><li>Fonction rénale (créatinine, DFG = débit de filtration glomérulaire) et hépatique (transaminases, bilirubine, GGT, PAL)</li><li>Albuminémie (état nutritionnel)</li><li><b>Uracilémie</b> (recherche de déficit en DPD = dihydropyrimidine déshydrogénase)*</li><li>ACE (antigène carcino-embryonnaire) :<br>${hg("TNCD : non recommandé en systématique, mais option. Si élevé en préopératoire, contrôler normalisation en postopératoire (6-8 semaines).")}<br>${hp("ESMO : recommandé avant chirurgie et pendant le suivi.")}</li></ul><div class="WA"><b>*Uracilémie — Obligatoire avant toute fluoropyrimidine</b> (5-FU, capécitabine) :<br>• ≥ 150 ng/mL → déficit complet en DPD → fluoropyrimidines <b>CONTRE-INDIQUÉES</b>.<br>• 16-150 ng/mL → déficit partiel → adaptation de la dose initiale.<br>• Génotypage du gène DPYD si phénotype anormal (variants DPYD*2A, c.1679T>G, c.2846A>T, c.1236G>A).</div></td><td><ul><li><b>Coloscopie totale</b> de bonne qualité + biopsies (minimum 10-15 biopsies)<br>${hg("+ tatouage de la lésion si chirurgie prévue (TNCD).")}<br>+ chromo-endoscopie virtuelle si lésion superficielle (classification JNET, CONECCT).</li><li><b>Scanner TAP</b> (thoraco-abdomino-pelvien) avec injection de produit de contraste</li><li>+/- <b>IRM hépatique</b> si doute sur lésion hépatique au scanner</li><li>+/- <b>IRM rectale</b> si lésion de la charnière recto-sigmoïdienne (préciser hauteur, statut sus/sous-péritonéal)</li><li>${hg("Colo-scanner au CO2 si coloscopie incomplète ou problème de repérage (TNCD).")}</li><li>${hp("TEP-scanner non recommandé en routine pour le staging (ESMO).")} ${hg("Sauf doute sur métastase au scanner (TNCD).")}</li></ul><p class="NT">Si coloscopie incomplète en préopératoire → à réaliser dans les 6 mois postopératoires.</p></td></tr></table>`},
+{title:"Anapath & Bio. moléculaire",html:`<h3>Compte-rendu anatomopathologique standardisé</h3><table class="T"><tr><td style="width:50%;vertical-align:top"><ul><li>Type histologique (90% adénocarcinomes) et grade de différenciation (bien, moyennement, peu différencié)</li><li>Classification pTNM (8ème édition UICC/AJCC 2017)</li><li>Marges de résection (proximale, distale, radiale = circonférentielle)</li><li>Nombre de ganglions examinés (<b>≥ 12 recommandé</b>) et nombre de ganglions envahis</li><li>Invasion vasculaire (veineuse), lymphatique, péri-nerveuse</li></ul></td><td style="vertical-align:top"><ul><li>Dépôts tumoraux satellites (nodules dans le tissu adipeux péri-colique). Classés N1c si tous les ganglions sont négatifs.</li><li>Tumor budding = bourgeonnement tumoral (cellules isolées ou amas < 5 cellules au front d'invasion). Grade 1 (1-4), 2 (5-9), 3 (≥10). Facteur pronostique péjoratif, non validé comme facteur décisionnel.</li><li>Perforation tumorale macroscopique</li><li><b>Statut MMR/MSI (obligatoire)</b></li><li>Si T4 : caractère monobloc ou non de la résection</li></ul></td></tr></table><h3>Biologie moléculaire</h3><table class="T"><tr><th style="width:18%">Biomarqueur</th><th style="width:22%">Technique</th><th>Indication et contexte</th></tr><tr><td><b>MMR / MSI</b><br><span class="NT">(mismatch repair / instabilité des microsatellites)</span></td><td>IHC (immunohistochimie) : anticorps anti-MLH1, MSH2, MSH6, PMS2.<br>Et/ou biologie moléculaire : PCR des microsatellites.</td><td><b>SYSTÉMATIQUE pour tous les CCR.</b> Valeur pronostique (bon pronostic si dMMR/MSI), théranostique (choix chimiothérapie, immunothérapie), dépistage du syndrome de Lynch.<br>~20% des stade II et ~12% des stade III sont dMMR/MSI. Fréquence augmente avec l'âge (> 20% après 75 ans, > 30% après 85 ans).</td></tr><tr><td><b>BRAF V600E</b></td><td>PCR / séquençage</td><td>Si extinction MLH1/PMS2 en IHC → rechercher BRAF V600E et/ou hyperméthylation du promoteur de MLH1 pour différencier tumeur sporadique du syndrome de Lynch.<br>Valeur pronostique établie pour les stade III.</td></tr><tr><td><b>KRAS, NRAS</b></td><td>Séquençage NGS (séquençage de nouvelle génération)</td><td>En cas de cancer avancé ou métastatique (pour traitement par anti-EGFR). Conservation de l'ADN tumoral recommandée en cas de récidive future.</td></tr><tr style="background:#f0fdf4"><td><b style="color:var(--gn)">Mutations voie PI3K</b><br><span class="NT">PIK3CA exons 9/20, PIK3R1, PTEN</span></td><td>Séquençage</td><td>${hg("<b>NOUVEAU TNCD février 2026.</b> Recherche recommandée (option) pour discuter un traitement adjuvant par aspirine 160 mg/jour pendant 3 ans si mutation identifiée (grade B).<br>~37% des patients screenés ont une altération de la voie PI3K (essai ALASSCA). Réduction du taux de récidive à 3 ans de 6 à 8%.")}</td></tr><tr><td><b>ADN tumoral circulant (ctDNA)</b></td><td>Biologie moléculaire sur prélèvement sanguin</td><td>Biomarqueur prometteur pour la détection de maladie résiduelle après chirurgie. Essais en cours : CIRCULATE-PRODIGE 70 (stade II), CIRCULATE PAC-PRODIGE 88 (stade III). <b>Non recommandé en routine.</b></td></tr></table>`},
+{title:"Classification TNM",html:`<h3>Classification TNM — 8ème édition UICC/AJCC 2017</h3><table class="T"><tr class="T-hdr"><th colspan="2">T — Tumeur primitive</th></tr><tr><td style="width:12%;font-weight:700;text-align:center">Tis</td><td>Carcinome in situ / intra-muqueux (envahissement de la lamina propria sans franchir la musculaire muqueuse)</td></tr><tr><td style="font-weight:700;text-align:center">T1</td><td>Envahissement de la sous-muqueuse</td></tr><tr><td style="font-weight:700;text-align:center">T2</td><td>Envahissement de la musculeuse</td></tr><tr><td style="font-weight:700;text-align:center">T3</td><td>Envahissement de la sous-séreuse ou des tissus péri-coliques non péritonisés</td></tr><tr><td style="font-weight:700;text-align:center">T4a</td><td>Tumeur perforant le péritoine viscéral</td></tr><tr><td style="font-weight:700;text-align:center">T4b</td><td>Tumeur envahissant directement un organe ou une structure de voisinage</td></tr><tr class="T-hdr"><th colspan="2">N — Ganglions lymphatiques régionaux</th></tr><tr><td style="font-weight:700;text-align:center">N0</td><td>Pas de métastase ganglionnaire régionale</td></tr><tr><td style="font-weight:700;text-align:center">N1a / N1b</td><td>Métastase dans 1 ganglion (a) / 2-3 ganglions (b)</td></tr><tr><td style="font-weight:700;text-align:center">N1c</td><td>Dépôts tumoraux satellites sans ganglion métastatique</td></tr><tr><td style="font-weight:700;text-align:center">N2a / N2b</td><td>Métastases dans 4-6 ganglions (a) / ≥ 7 ganglions (b)</td></tr><tr class="T-hdr"><th colspan="2">Regroupement par stades</th></tr><tr><td style="font-weight:700;text-align:center">Stade 0</td><td>pTis, N0, M0</td></tr><tr><td style="font-weight:700;text-align:center">Stade I</td><td>pT1-T2, N0, M0</td></tr><tr><td style="font-weight:700;text-align:center">Stade IIA / IIB / IIC</td><td>pT3 N0 / pT4a N0 / pT4b N0</td></tr><tr><td style="font-weight:700;text-align:center">Stade IIIA</td><td>pT1-T2 N1/N1c | pT1 N2a</td></tr><tr><td style="font-weight:700;text-align:center">Stade IIIB</td><td>pT3-T4a N1/N1c | pT2-T3 N2a | pT1-T2 N2b</td></tr><tr><td style="font-weight:700;text-align:center">Stade IIIC</td><td>pT4a N2a | pT3-T4a N2b | pT4b N1-N2</td></tr></table><p class="NT">Micro-métastases (0,2-2 mm) = pN1. Cellules tumorales isolées (CTI, < 0,2 mm) = classées N0.<br>pT4a : tumeur à < 1 mm de la séreuse = pT3 (coupes supplémentaires recommandées).</p>`},
+{title:"Résection endoscopique & Chirurgie",html:`<h3>Résection endoscopique — Cancer superficiel (pTis ou pT1)</h3><table class="T"><tr><th style="width:50%;background:#dcfce7">✅ Résection curative → surveillance seule</th><th style="background:#fee2e2">⚠ Chirurgie complémentaire nécessaire</th></tr><tr><td><b>Très bas risque ganglionnaire — Tis :</b><br>Adénocarcinome intra-muqueux pur. Risque de métastase ganglionnaire < 1%. Résection R0 suffisante.<br><br><b>Bas risque ganglionnaire — T1a :</b><br>Envahissement sous-muqueux superficiel (sm1), invasion < 1000 µm, résection R0 monobloc, ET :<ul><li>Bien ou moyennement différencié</li><li>Absence d'emboles vasculaires, lymphatiques ou péri-nerveux</li><li>Absence de budding de haut grade (grade 2-3, ≥ 5 bourgeons/champ ×20)</li></ul>Risque de métastase ganglionnaire < 3%.<br>Scanner TAP recommandé en post-résection.<br><br><b>Polypes pédiculés :</b><br>Haggitt 1-2 (tête/collet) : risque quasi nul.<br>Haggitt 3 (pédicule sous le collet) si < 3000 µm et sans critère péjoratif : faible risque.</td><td><b>Haut risque ganglionnaire (> 3%) :</b><ul><li>Envahissement sous-muqueux ≥ 1000 µm (sm2-sm3 = T1b)</li><li>Emboles vasculaires, lymphatiques ou péri-nerveux → <b>facteur le plus péjoratif (risque ganglionnaire 20-30%)</b></li><li>Peu différencié ou adénocarcinome mucosécrétant</li><li>Budding de haut grade (grade 2-3)</li></ul><b>Marge profonde envahie (R1) :</b><ul><li>Tis avec R1 ou résection fragmentée → surveillance endoscopique à 6 et 18 mois</li><li>T1 avec facteurs de risque et R1 → chirurgie recommandée</li><li>T1a sans facteur péjoratif, résection fragmentée sans cancer aux marges → décision individualisée</li></ul><b>Polypes pédiculés :</b> Haggitt 3 > 3000 µm (~15% risque) et Haggitt 4 (~27%) → chirurgie.</td></tr></table><h4>Choix de la technique endoscopique</h4><table class="T"><tr><th style="width:40%">Lésion</th><th>Technique</th></tr><tr><td>< 20 mm avec risque de cancer T1</td><td><b>Mucosectomie à l'anse</b> (EMR). Privilégier mucosectomie sous-marine ou par ancrage (meilleur taux R0).</td></tr><tr><td>≥ 20 mm avec risque de cancer T1</td><td><b>Dissection sous-muqueuse</b> (ESD).</td></tr><tr><td>Critères d'adénocarcinome invasif profond (> 1000 µm) : ulcération, absence de relief (JNET type 3)</td><td><b>Pas de résection endoscopique</b> → scanner TAP → <b>chirurgie avec curage ganglionnaire</b>.</td></tr></table><h3>Chirurgie — Principes</h3><table class="T"><tr><th style="width:28%">Principe</th><th>Détails</th></tr><tr><td><b>Marges</b></td><td>≥ 5 cm de marge distale et proximale (sur pièce fraîche). Pour la charnière recto-sigmoïdienne : 5 cm de mésorectum sous le pôle inférieur.</td></tr><tr><td><b>Curage ganglionnaire</b></td><td>${hg("<b>RÉFÉRENCE TNCD :</b> Curage a minima D2 (ligature des vaisseaux coliques à l'origine).")}<br>${hg("<b>OPTION TNCD :</b> Curage D3 si suspicion macroscopique peropératoire d'envahissement ganglionnaire important.")}<br>${hp("ESMO : résection en bloc du mésocôlon, ≥ 12 ganglions analysés.")}<br><span class="NT">Étude RELARC (phase III) : pas de différence D3 vs D2 pour colectomies droites. Bénéfice en sous-groupe stade III et N2.</span></td></tr><tr><td><b>Voie d'abord</b></td><td>Cœlioscopie recommandée pour T1-T3 (grade A). Discutée pour T4.</td></tr><tr><td><b>Type de résection</b></td><td><ul><li><b>Côlon droit / cæcum / ascendant / angle hépatique :</b> colectomie droite + anastomose iléo-colique</li><li><b>Transverse :</b> colectomie droite étendue. Colectomie transverse isolée NON recommandée (risque élevé de fistule).</li><li><b>Angle gauche / descendant :</b> colectomie angulaire gauche + anastomose colo-colique</li><li><b>Sigmoïde :</b> sigmoïdectomie + anastomose colorectale</li><li><b>Lynch / PAF :</b> cf. recommandations GENMAD / INCa</li></ul></td></tr><tr><td><b>Tumeur T4</b></td><td>Résection monobloc (tumeur + organe envahi).<br>${hg("TNCD : chimiothérapie néo-adjuvante à discuter si tumeur inextirpable ou à la limite de la résécabilité (avis d'experts).")}</td></tr><tr><td><b>Cancer occlusif</b></td><td>Colostomie de proche amont à privilégier.<br>${hg("TNCD : prothèse colique (stent) comme « pont » vers chirurgie curative non recommandée en 1ère intention.")}<br>${hp("ESMO/ESGE 2020 : place plus large de la prothèse en centres experts.")}</td></tr><tr><td><b>CHIP</b></td><td>Non recommandée même si risque élevé de carcinose (grade B, études PROPHYLOCHIP et COLOPEC négatives).</td></tr></table>`},
+{title:"Arbres décisionnels",html:`<h3>Arbres décisionnels thérapeutiques</h3>
+<div class="A"><div class="AT">Stade 0 et I</div><div class="CN"><div class="N" style="background:#f1f5f9">Coloscopie diagnostique</div><div class="AR">↓</div><div class="R"><div class="CN"><div class="BL">pTis ou pT1 sans facteur de risque</div><div class="N Nk"><b>Exérèse endoscopique</b><br>R0 monobloc</div><div class="AR">↓</div><div class="N Nk">Surveillance endoscopique</div></div><div class="CN"><div class="BL">pT1 avec facteur(s) de risque ou ≥ pT2</div><div class="N Nr"><b>Chirurgie curative</b><br>Colectomie + curage D2</div><div class="AR">↓</div><div class="N Nk"><b>Pas de chimio adjuvante</b><br>Surveillance</div></div></div></div></div>
+
+<div class="A"><div class="AT">Stade II — T3-T4, N0, M0</div><div class="CN"><div class="N" style="background:#f1f5f9;min-width:250px"><b>Exérèse curative d'un cancer du côlon de stade II</b></div><div class="AR">↓</div><div class="R"><div class="CN" style="min-width:130px"><div class="N Nk" style="max-width:170px"><b>RÉFÉRENCE</b><br>Pas de chimio adjuvante</div><div class="AR">↓</div><div class="N" style="max-width:170px;font-size:10.5px">Surveillance</div></div><div class="CN" style="min-width:300px"><div class="N No" style="max-width:350px"><b>OPTIONS</b> selon facteurs de mauvais pronostic (FMP) :<br><span style="font-size:10.5px">pT4, MSI/MSS, différenciation, ganglions < 12, perforation, occlusion, emboles, péri-nerveux, CTI</span></div><div class="AR">↓</div><div class="R"><div class="N Nk" style="font-size:10.5px;max-width:145px"><b>pMMR/MSS</b><br>0-1 FMP (hors T4 et gg < 12)<br><br><b>LV5FU2s ou Capécitabine 6 mois</b></div><div class="N No" style="font-size:10.5px;max-width:145px"><b>pMMR/MSS</b><br>> 1 FMP (hors pT4b)<br><br><b>CAPOX 3 mois</b></div><div class="N Nx" style="font-size:10.5px;max-width:145px"><b>pT4b</b><br>(MSS ou MSI)<br><br><b>FOLFOX6m 6 mois</b><br>ou <b>CAPOX 3 mois</b></div></div></div></div></div><div class="I"><b>dMMR/MSI stade II :</b> pas de chimiothérapie adjuvante (bon pronostic). <b>SAUF</b> si pT4b et/ou multiples FMP → FOLFOX6m 6 mois ou CAPOX 3 mois.<br><b>Fluoropyrimidine seule NON indiquée si dMMR/MSI.</b></div><div class="NW">${hg("<b>TNCD 2026 :</b>")} Recherche mutations voie PI3K → si mutation : <b>Aspirine 160 mg/j × 3 ans</b> (grade B, ALASSCA). <b>APA</b> (activité physique adaptée) prescrite (grade A si haut risque). Adaptation oxaliplatine selon masse maigre si sarcopénie (LEANOX). Essai CIRCULATE-PRODIGE 70 en cours.</div></div>
+
+<div class="A"><div class="AT">Stade III — tout T, N1-N2, M0</div><div class="CN"><div class="N" style="background:#f1f5f9;min-width:250px"><b>Exérèse curative d'un cancer du côlon de stade III</b></div><div class="AR">↓</div><div class="N Nr" style="max-width:420px"><b>RÉFÉRENCES : Chimiothérapie adjuvante</b><br><span style="font-size:11px">Débuter si possible avant J42 postop (< 8 semaines). Recherche DPD obligatoire. APA prescrite (grade A).</span></div><div class="AR">↓</div></div><table class="T" style="max-width:480px;margin:0 auto"><tr><th style="width:35%">Sous-groupe</th><th style="text-align:center">CAPOX</th><th style="text-align:center">FOLFOX6m</th></tr><tr><td><b>Bas risque</b><br>(T1-3, N1)</td><td style="background:#dcfce7;text-align:center"><b>3 mois</b> (4 cures)<br>= STANDARD (grade A)</td><td style="text-align:center"><b>6 mois</b> (12 cures)<br><span style="font-size:10px">(alternative 3 mois)</span></td></tr><tr><td><b>Haut risque</b><br>(T4 et/ou N2)</td><td style="text-align:center"><b>6 mois</b> (8 cures)<br><span style="font-size:10px">(alternative 3 mois)</span></td><td style="background:#fee2e2;text-align:center"><b>6 mois</b> (12 cures)<br><span style="font-size:10px;color:#dc2626"><b>PAS 3 mois</b></span></td></tr></table><div class="R" style="margin-top:12px"><div class="N Nr" style="font-size:10.5px;max-width:160px"><b>Âge > 70 ans</b><br><br><b>RÉF (grade B) :</b><br>Fluoropyrimidine seule 6 mois<br><br><b>OPT :</b> FOLFOX6m / CAPOX<br>(au cas par cas)</div><div class="N Nx" style="font-size:10.5px;max-width:160px"><b>CI oxaliplatine</b><br><br>LV5FU2s ou Capécitabine 6 mois<br><br><b>CI fluoropyrimidines</b><br>(DPD complet) :<br>TOMOX ou TAS-OX</div><div class="N Nk" style="font-size:10.5px;max-width:160px"><b style="color:var(--gn)">dMMR/MSI stade III</b><br><br>FOLFOX + oxaliplatine 3-6 mois<br><br><b style="color:var(--gn)">OPT TNCD 2026 :</b><br>FOLFOX 6m + Atézolizumab 12m<br><span style="font-size:9.5px">(ATOMIC positif, pas d'AMM/remboursement)</span></div></div><div class="W">⚠ Arrêt de l'oxaliplatine dès neuropathie ≥ grade 2 (paresthésies douloureuses spontanées, persistantes entre 2 cycles). Obligatoire si gêne fonctionnelle (grade 3) ou réaction allergique.</div><div class="NW">${hg("<b>TNCD 2026 :</b>")} Aspirine 160 mg/j × 3 ans si mutation PI3K (grade B). APA = RÉFÉRENCE (grade A, essai CHALLENGE : SSR à 5 ans 80,3% vs 73,9%, HR = 0,72). Adaptation dose oxaliplatine si sarcopénie (LEANOX). Essai CIRCULATE PAC-PRODIGE 88 en cours.</div></div>`},
+{title:"Traitement par stade",html:`<h3>Récapitulatif — Traitement par stade</h3><div class="A"><div class="AT">Stade 0 et I</div><table class="T"><tr><th>Stade</th><th>Traitement</th><th>Adjuvant</th></tr><tr><td><b>0 (Tis)</b></td><td>Exérèse endoscopique seule</td><td>Aucun</td></tr><tr><td><b>I (T1-2 N0)</b></td><td>Chirurgie seule ou exérèse endoscopique curative pour certains pT1</td><td>Aucun</td></tr></table></div><div class="A"><div class="AT">Stade II — Néo-adjuvant</div><table class="T"><tr><th>Situation</th><th>Recommandation</th></tr><tr><td>pMMR/MSS</td><td><b>RÉFÉRENCE :</b> Pas de néo-adjuvant.</td></tr><tr><td>dMMR/MSI</td><td><b>RÉFÉRENCE :</b> Pas de néo-adjuvant ni de stratégie « watch and wait ».<br>${hg("OPTION TNCD : immunothérapie néo-adjuvante si chirurgie « délabrante » ou risque opératoire élevé, après avis centre expert. Essai PREMICES en cours.")}</td></tr></table></div><div class="A"><div class="AT">Stade II — Adjuvant</div><p style="text-align:center;font-size:12px"><b>RÉFÉRENCE : Pas de chimiothérapie adjuvante.</b></p><p class="NT" style="text-align:center">OPTIONS selon FMP : pT4, MSI/MSS, différenciation, ganglions < 12, perforation, occlusion, emboles, péri-nerveux, CTI.</p><table class="T"><tr><th>Profil</th><th>Chimiothérapie</th></tr><tr><td>pMMR/MSS, 0-1 FMP (hors T4 et ganglions < 12)</td><td>LV5FU2s ou Capécitabine 6 mois</td></tr><tr><td>pMMR/MSS, > 1 FMP (hors pT4b)</td><td>CAPOX 3 mois (surtout si pT4a, ganglions < 12, CTI)</td></tr><tr><td>pT4b (MSS ou MSI)</td><td>FOLFOX6m 6 mois ou CAPOX 3 mois</td></tr><tr><td>dMMR/MSI (sans pT4b ni multiples FMP)</td><td><b>Pas de chimiothérapie</b> (bon pronostic). Fluoropyrimidine seule NON indiquée.</td></tr></table><div class="NW">${hg("<b>TNCD 2026 :</b>")} Aspirine 160 mg/j × 3 ans si mutation PI3K (grade B). APA prescrite (grade A haut risque). Adaptation oxaliplatine si sarcopénie (LEANOX).</div></div><div class="A"><div class="AT">Stade III — Néo-adjuvant</div><table class="T"><tr><th>Situation</th><th>Recommandation</th></tr><tr><td>pMMR/MSS</td><td><b>RÉFÉRENCE :</b> Pas de néo-adjuvant.<br>${hg("OPTION TNCD (grade B) : FOLFOX néo-adjuvant si tumeur cT3 fort (extension extra-murale > 5 mm) ou cT4. Essai FOxTROT positif.")}</td></tr><tr><td>dMMR/MSI</td><td><b>RÉFÉRENCE :</b> Pas de néo-adjuvant en dehors d'essais cliniques.<br>${hg("OPTION TNCD : immunothérapie néo-adjuvante si chirurgie « délabrante ». NICHE-2 : ~67% pCR. Essai PREMICES en cours.")}</td></tr></table></div><div class="A"><div class="AT">Stade III — Adjuvant</div><p style="text-align:center;font-size:12px"><b>Chimiothérapie adjuvante à débuter < 8 semaines postop. DPD obligatoire.</b></p><table class="T"><tr><th style="width:35%">Sous-groupe</th><th style="text-align:center">CAPOX</th><th style="text-align:center">FOLFOX6m</th></tr><tr><td><b>Bas risque</b> (T1-3, N1)</td><td style="background:#dcfce7;text-align:center"><b>3 mois</b> = STANDARD</td><td style="text-align:center"><b>6 mois</b> (alt. 3 mois)</td></tr><tr><td><b>Haut risque</b> (T4 et/ou N2)</td><td style="text-align:center"><b>6 mois</b> (alt. 3 mois)</td><td style="background:#fee2e2;text-align:center"><b>6 mois</b> (<b>PAS 3 mois</b>)</td></tr></table><table class="T"><tr><th>Situation particulière</th><th>Traitement</th></tr><tr><td>> 70 ans</td><td><b>RÉFÉRENCE :</b> Fluoropyrimidine seule 6 mois (grade B). <b>OPTION :</b> FOLFOX/CAPOX au cas par cas.</td></tr><tr><td>CI à l'oxaliplatine</td><td>LV5FU2s ou Capécitabine 6 mois.</td></tr><tr><td>CI aux fluoropyrimidines (DPD complet)</td><td>TOMOX (raltitrexed + oxaliplatine) ou TAS-OX (trifluridine/tipiracil + oxaliplatine). Accord d'experts.</td></tr><tr><td>dMMR/MSI stade III</td><td>FOLFOX + oxaliplatine 3-6 mois.<br>${hg("<b>OPTION TNCD 2026 :</b> FOLFOX 6 mois + Atézolizumab 12 mois (ATOMIC positif : SSR 3 ans 86,4% vs 76,6%, HR = 0,50). Pas d'AMM ni de remboursement. Discussion RCP.")}</td></tr></table><div class="W">⚠ Arrêt oxaliplatine dès neuropathie ≥ grade 2. Obligatoire si grade 3 ou allergie.</div><div class="NW">${hg("<b>TNCD 2026 :</b>")} Aspirine 160 mg/j × 3 ans si mutation PI3K (grade B). APA = RÉFÉRENCE (grade A, CHALLENGE). Adaptation dose oxaliplatine si sarcopénie (LEANOX).</div></div>`},
+{title:"Protocoles",html:`<h3>Protocoles de chimiothérapie</h3><table class="T"><tr class="T-hdr"><th colspan="3">Fluoropyrimidines seules</th></tr><tr><th style="width:20%">Protocole</th><th>Composition</th><th style="width:14%">Rythme</th></tr><tr><td><b>LV5FU2 simplifié</b></td><td>AF (acide folinique) 400 mg/m² en 2h dans 250 mL G5%<br>Rincer, puis 5-FU (5-fluorouracile) 400 mg/m² en 10 min (bolus)<br>Puis 5-FU 2400 mg/m² en perfusion continue 46h sur diffuseur portable</td><td>Tous les 14 jours</td></tr><tr><td><b>Capécitabine</b><br>(Xéloda®)</td><td>2500 mg/m²/jour (1250 mg/m² matin et soir) per os, 2 semaines sur 3.<br><span class="NT">Sujets âgés : initier à 2000 mg/m²/jour. Éviter si insuffisance rénale.</span></td><td>Cycles de 21 jours<br>(8 cycles = 6 mois)</td></tr><tr class="T-hdr"><th colspan="3">Associations avec oxaliplatine</th></tr><tr><td><b>FOLFOX6m</b><br>(= FOLFOX4 simplifié)</td><td>Oxaliplatine 85 mg/m² en 2h en Y de l'AF à J1 + LV5FU2 simplifié.<br><span class="NT">Plus simple que FOLFOX4 (1 jour vs 2 jours en hôpital de jour), dose-intensité de 5-FU supérieure.</span></td><td>Tous les 14 jours<br>(12 cycles = 6 mois)</td></tr><tr><td><b>CAPOX</b><br>(= XELOX)</td><td>Oxaliplatine 130 mg/m² IV en 2h à J1 + Capécitabine 2000 mg/m²/jour (1000 mg/m² matin et soir) J2 à J15.<br><span class="NT">Avantage : pas de voie veineuse centrale (pas de chambre implantable).</span></td><td>Tous les 21 jours<br>(4 cures = 3 mois<br>8 cures = 6 mois)</td></tr><tr class="T-hdr"><th colspan="3">Alternatives si CI aux fluoropyrimidines (déficit complet en DPD)</th></tr><tr><td><b>TOMOX</b></td><td>Raltitrexed (Tomudex®) 3 mg/m² en 15 min + Oxaliplatine 130 mg/m² en 2h (45 min après).<br><span class="NT">Adaptation à la clairance créatinine si < 65 mL/min.</span></td><td>Tous les 21 jours</td></tr><tr><td><b>TAS-OX</b></td><td>Oxaliplatine 85 mg/m² J1 + Trifluridine/Tipiracil (Lonsurf®) 35 mg/m² × 2/jour J1-J5</td><td>Tous les 14 jours<br>(12 cycles)</td></tr><tr class="T-hdr"><th colspan="3">Immunothérapie — ${hg("OPTION TNCD 2026")} (dMMR/MSI stade III)</th></tr><tr><td><b>FOLFOX6m + Atézolizumab</b></td><td>FOLFOX6m + Atézolizumab (anti-PD-L1) 840 mg IV J1 × 12 cures (6 mois)<br>Puis Atézolizumab seul 840 mg IV × 12 cures (6 mois supplémentaires)<br>Total = 12 mois de traitement</td><td>Toutes les 2 semaines</td></tr><tr class="T-hdr"><th colspan="3">Autres protocoles</th></tr><tr><td><b>FOLFIRI</b></td><td>LV5FU2 simplifié + Irinotécan 180 mg/m² en 90 min en Y de l'AF à J1.<br><span class="NT">L'irinotécan n'a PAS démontré d'efficacité en situation adjuvante dans le cancer du côlon.</span></td><td>Tous les 14 jours</td></tr><tr><td><b>Trifluridine/Tipiracil</b><br>(Lonsurf® monothérapie)</td><td>35 mg/m² × 2/jour per os J1-J5 puis J8-J12, repos J13-J28</td><td>Tous les 28 jours</td></tr></table><div class="W" style="text-align:left"><b>Rappels importants :</b><br>• <b>Irinotécan, Cétuximab, Bévacizumab :</b> PAS de bénéfice en situation adjuvante dans le cancer du côlon localisé.<br>• <b>Raltitrexed en monothérapie :</b> NON indiqué en adjuvant (surmortalité étude PETACC-1).<br>• <b>FLOX</b> (oxaliplatine + 5-FU bolus hebdomadaire) : non recommandé (plus de diarrhée).</div>`},
+{title:"Surveillance",html:`<h3>Surveillance après résection chirurgicale curative — Stades II et III</h3><p class="NT">Stade I : pas de surveillance de récidive à distance (endoscopie uniquement). Durée totale : 5 ans. Au-delà : taux de récidive très faible.</p><table class="T"><tr><th style="width:22%">Examen</th><th style="width:38%">Rythme</th><th>Source / commentaires</th></tr><tr><td><b>Examen clinique</b></td><td>Tous les 3 mois × 3 ans, puis tous les 6 mois × 2 ans</td><td>${hg("TNCD")} et ${hp("ESMO")}</td></tr><tr><td><b>Échographie abdominopelvienne</b></td><td>Tous les 3 mois × 3 ans, puis tous les 6 mois × 2 ans</td><td>${hg("RÉFÉRENCE TNCD.")} Sensibilité ~85% pour les métastases hépatiques.</td></tr><tr><td><b>Radiographie thoracique</b></td><td>Tous les 6 mois × 3 ans, puis annuelle × 2 ans</td><td>${hg("RÉFÉRENCE TNCD.")}</td></tr><tr><td><b>Scanner TAP</b></td><td>${hg("OPTION TNCD : en remplacement de l'écho + Rx thorax si patient peu échogène ou risque élevé (T4, N2).")}<br>${hp("ESMO : scanner TAP tous les 6-12 mois × 3 ans pour les patients à haut risque.")}</td><td>Scanner plus sensible que l'échographie pour le foie (0,67 vs 0,43).</td></tr><tr><td><b>ACE</b></td><td>${hg("<b>TNCD 2026 : N'est PLUS recommandé en surveillance systématique</b> (grade B, essai PRODIGE 13 négatif : pas de bénéfice en survie globale).")}<br>${hp("ESMO : tous les 3-6 mois × 3 ans, puis tous les 6-12 mois × 2 ans.")}</td><td>${hg("Si ACE élevé en préop → contrôle postop 6-8 sem. Persistance → bilan morphologique.")}</td></tr><tr><td><b>Coloscopie</b></td><td>Si préop complète : à 1 an, 3 ans, 5 ans (si normale).<br>Si incomplète : dans les 6 mois postop puis 1 an, 3 ans, 5 ans.</td><td>Lynch : chromo-endoscopie tous les 1-2 ans. PAF : cf. GENMAD.</td></tr><tr><td><b>TEP-scanner</b></td><td>NON recommandé en surveillance systématique.</td><td>Uniquement si suspicion de récidive au scanner ou élévation inexpliquée de l'ACE.</td></tr></table><h4>Surveillance après résection endoscopique (pTis ou pT1)</h4><table class="T"><tr><th>Risque ganglionnaire</th><th>Surveillance</th></tr><tr><td><b>Très bas risque (Tis, R0)</b></td><td>Coloscopie à 3 ans. Si R1 monobloc : 6 mois. Si fragmentée : 6 et 18 mois.</td></tr><tr><td><b>Bas risque (T1a < 1000 µm, sans facteur péjoratif)</b></td><td>Scanner TAP post-résection, puis coloscopie à 1 an et 3 ans.</td></tr><tr><td><b>Haut risque (T1 avec facteurs péjoratifs → chirurgie)</b></td><td>Surveillance oncologique selon stade définitif, coloscopie à 1 an et 3 ans.</td></tr></table>`},
+{title:"Essais cliniques",html:`<h3>Essais cliniques en cours (France)</h3><table class="T"><tr><th style="width:25%">Essai</th><th>Description</th><th style="width:18%">Coordonnateur</th></tr><tr><td><b>PRODIGE 70 — CIRCULATE</b></td><td>Décision de traitement adjuvant des stade II basée sur l'ADN tumoral circulant (ctDNA) postopératoire.</td><td>J. Taïeb, C. Lepage, T. André, L. Benhaim</td></tr><tr><td><b>PRODIGE 88 — CIRCULATE PAC</b></td><td>Phase III : traitement si ctDNA positif après chirurgie + chimiothérapie adjuvante pour cancer colorectal de stade III.</td><td>J. Taïeb, L. Benhaim, JB. Bachet</td></tr><tr><td><b>PRODIGE 84 — PREMICES</b></td><td>Phase II randomisée : Pembrolizumab néo-adjuvant avec stratégie « watch-and-wait » pour CCR dMMR/MSI localisé.</td><td>R. Cohen</td></tr><tr><td><b>FFCD 2006 — NEORAF</b></td><td>Encorafénib + Cétuximab néo-adjuvant si cancer du côlon localisé avec mutation BRAF V600E.</td><td>C. Gallois</td></tr><tr><td><b>FRENCH 01-18 — COnCERTO</b></td><td>Phase III : FOLFOX néo-adjuvant vs non si cancer colique obstructif traité par stomie.</td><td>JJ. Tuech</td></tr><tr><td><b>ADAGE (PRODIGE 34)</b></td><td>Chimiothérapie adjuvante chez ≥ 70 ans, stade III.</td><td>T. Aparicio</td></tr><tr><td><b>ASPIK — PRODIGE 50</b></td><td>Aspirine 100 mg/j vs placebo si mutation PIK3CA (exons 9/20), stade II-III.</td><td>P. Michel</td></tr></table><p class="NT">${hp("■ ROSE = ESMO :")} Argilés G et al. Localised colon cancer: ESMO Clinical Practice Guidelines. Ann Oncol 2020.<br>${hg("■ VERT = TNCD :")} Lecomte T, Tougeron D et al. Cancer du côlon non métastatique. TNCD Chapitre 3, mise à jour 13/02/2026.</p>`}
+]});
+}
+
+function renderList(){
+  document.getElementById("list").style.display="block";
+  document.getElementById("detail").style.display="none";
+  updateStats();
   filterList();
 }
 
-function renderCats() {
-  const cats = ["Tous", ...new Set(FICHES.map(f => f.category))];
-  document.getElementById("cats").innerHTML = cats.map(c =>
-    `<button class="${c === currentCat ? 'active' : ''}" onclick="setCat('${c}')">${c}</button>`
-  ).join("");
+function updateStats(){
+  document.getElementById("stat-fiches").textContent=FICHES.length;
+  let total=0;FICHES.forEach(f=>{total+=(ann[f.id]||[]).length});
+  document.getElementById("stat-notes").textContent=total;
 }
 
-function setCat(c) { currentCat = c; renderCats(); filterList(); }
-
-function filterList() {
-  const q = document.getElementById("searchbar").value.toLowerCase();
-  const container = document.getElementById("fiche-list");
-  const filtered = FICHES.filter(f => {
-    const match = !q || f.title.toLowerCase().includes(q) || f.tags.some(t => t.includes(q)) || f.sections.some(s => s.title.toLowerCase().includes(q));
-    return match && (currentCat === "Tous" || f.category === currentCat);
+function filterList(){
+  const q=document.getElementById("searchbar").value.toLowerCase();
+  const c=document.getElementById("fiche-list");
+  const fl=FICHES.filter(f=>{
+    return !q||f.title.toLowerCase().includes(q)||f.sections.some(s=>s.title.toLowerCase().includes(q)||s.html.toLowerCase().includes(q));
   });
-  container.innerHTML = filtered.map(f => {
-    const anns = (annotations[f.id] || []).length;
+  c.innerHTML=fl.map(f=>{
+    const a=(ann[f.id]||[]).length;
     return `<div class="card" style="border-left-color:${f.color}" onclick="openFiche('${f.id}')">
-      <div style="display:flex;justify-content:space-between"><div style="flex:1">
-        <div class="card-title">${f.title}</div>
-        <div class="card-meta"><span class="badge">${f.category}</span>MAJ ${f.lastUpdated} · ${f.sections.length} sections</div>
-        <div>${f.tags.slice(0,8).map(t => `<span class="tag">${t}</span>`).join("")}</div>
-      </div><div style="display:flex;flex-direction:column;align-items:center;margin-left:6px">
-        ${anns > 0 ? `<span class="ann-badge">📝 ${anns}</span>` : ''}
-        <span style="color:#94a3b8;font-size:15px">›</span>
-      </div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="flex:1">
+          <div class="card-title">${f.title}</div>
+          <div class="card-meta"><span class="badge">${f.category}</span> MAJ ${f.lastUpdated} · ${f.sections.length} sections${a>0?' · <span class="ann-badge">📝 '+a+' note'+(a>1?'s':'')+'</span>':''}</div>
+        </div>
+        <span style="color:#94a3b8;font-size:20px;margin-left:10px">›</span>
+      </div>
     </div>`;
   }).join("");
 }
 
-function openFiche(id) {
-  currentFiche = FICHES.find(f => f.id === id);
-  currentSection = 0;
-  document.getElementById("list").style.display = "none";
-  document.getElementById("detail").style.display = "block";
+function openFiche(id){
+  curF=FICHES.find(f=>f.id===id);curS=0;
+  document.getElementById("list").style.display="none";
+  document.getElementById("detail").style.display="block";
+  const sb=document.getElementById("sidebar");
+  sb.classList.remove("closed");sidebarOpen=true;
+  document.getElementById("sidebar-overlay").classList.remove("open");
   renderDetail();
 }
 
-function goBack() { currentFiche = null; renderList(); }
+function goBack(){curF=null;renderList()}
 
-function renderDetail() {
-  if (!currentFiche) return;
-  const anns = annotations[currentFiche.id] || [];
-  document.getElementById("detail-title").textContent = currentFiche.title;
-  document.getElementById("detail-meta").textContent = `MAJ ${currentFiche.lastUpdated} · ${anns.length} note(s)`;
-
-  // Sidebar
-  let sb = '<div style="padding:7px 10px;font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase">Sections</div>';
-  currentFiche.sections.forEach((s, i) => {
-    const active = i === currentSection && currentSection >= 0;
-    const hasAnn = anns.some(a => a.si === i);
-    sb += `<div class="sidebar-item ${active ? 'active' : ''}" onclick="setSection(${i})" style="${active ? 'border-left-color:' + currentFiche.color : ''}">
-      <span style="flex:1">${s.title}</span>${hasAnn ? '<span class="dot"></span>' : ''}
+function renderDetail(){
+  if(!curF)return;
+  const a=ann[curF.id]||[];
+  document.getElementById("detail-title").textContent=curF.title;
+  document.getElementById("detail-meta").textContent=`MAJ ${curF.lastUpdated} · ${a.length} note(s)`;
+  let sb='<div style="padding:8px 12px;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Sections</div>';
+  curF.sections.forEach((s,i)=>{
+    const act=i===curS&&curS>=0;
+    const ha=a.some(x=>x.si===i);
+    sb+=`<div class="sidebar-item${act?' active':''}" onclick="setSection(${i})" ${act?'style="border-left-color:'+curF.color+'"':''}>
+      <span style="flex:1">${s.title}</span>${ha?'<span class="dot"></span>':''}
     </div>`;
   });
-  sb += '<div style="border-top:1px solid #e2e8f0;margin:3px 0"></div>';
-  const notesActive = currentSection === -1;
-  sb += `<div class="sidebar-notes ${notesActive ? 'active' : ''}" onclick="setSection(-1)">📝 Mes notes (${anns.length})</div>`;
-  document.getElementById("sidebar").innerHTML = sb;
-
-  // Main content
+  sb+='<div style="border-top:1px solid #e2e8f0;margin:4px 0"></div>';
+  sb+=`<div class="sidebar-notes${curS===-1?' active':''}" onclick="setSection(-1)">📝 Mes notes (${a.length})</div>`;
+  document.getElementById("sidebar").innerHTML=sb;
   renderContent();
 }
 
-function setSection(i) { currentSection = i; renderDetail(); }
-
-function renderContent() {
-  const mc = document.getElementById("main-content");
-  const anns = annotations[currentFiche.id] || [];
-
-  if (currentSection >= 0) {
-    const sec = currentFiche.sections[currentSection];
-    const secAnns = anns.filter(a => a.si === currentSection);
-    let html = `<div class="section-card"><div class="content">${sec.html}</div></div>`;
-
-    if (secAnns.length > 0) {
-      html += '<div style="margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:#92400e;margin-bottom:3px">📝 Notes</div>';
-      secAnns.forEach(a => {
-        html += `<div class="ann-item"><div><div>${a.text}</div><div class="date">${a.date}</div></div><button class="del" onclick="delAnnotation(${a.id})">🗑</button></div>`;
-      });
-      html += '</div>';
-    }
-
-    html += `<button id="add-note-btn" onclick="showNoteForm()">+ Ajouter une note sur "${sec.title}"</button>`;
-    html += `<div id="note-form"><textarea id="note-text" rows="3" placeholder="Votre annotation..."></textarea><div class="btns"><button id="save-note" onclick="saveNote()">Enregistrer</button><button id="cancel-note" onclick="hideNoteForm()">Annuler</button></div></div>`;
-    mc.innerHTML = html;
-  } else {
-    // All notes view
-    let html = '<div class="section-card"><h3 style="color:#92400e;border-bottom-color:#f59e0b;font-size:14px;margin:0 0 10px;padding-bottom:6px;border-bottom:2px solid #f59e0b">📝 Toutes mes notes</h3>';
-    if (anns.length === 0) {
-      html += '<div style="text-align:center;padding:24px;color:#94a3b8;font-size:11px">Aucune annotation. Sélectionnez une section pour en ajouter.</div>';
-    } else {
-      anns.forEach(a => {
-        html += `<div class="ann-item"><div><div class="ann-section">${a.st}</div><div>${a.text}</div><div class="date">${a.date}</div></div><button class="del" onclick="delAnnotation(${a.id})">🗑</button></div>`;
-      });
-    }
-    html += '</div>';
-    mc.innerHTML = html;
+function setSection(i){
+  curS=i;renderDetail();
+  if(window.innerWidth<=768){
+    document.getElementById("sidebar").classList.add("closed");
+    document.getElementById("sidebar-overlay").classList.remove("open");
+    sidebarOpen=false;
   }
 }
 
-function showNoteForm() {
-  document.getElementById("add-note-btn").style.display = "none";
-  document.getElementById("note-form").style.display = "block";
-  document.getElementById("note-text").focus();
+function renderContent(){
+  const mc=document.getElementById("main-content");
+  const a=ann[curF.id]||[];
+  if(curS>=0){
+    const sec=curF.sections[curS];
+    const sa=a.filter(x=>x.si===curS);
+    let h=`<div class="section-card"><div class="content">${sec.html}</div></div>`;
+    if(sa.length>0){
+      h+='<div style="margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:4px">📝 Notes sur cette section</div>';
+      sa.forEach(x=>{h+=`<div class="ann-item"><div><div>${x.text}</div><div class="date">${x.date}</div></div><button class="del" onclick="delAnn(${x.id})">🗑</button></div>`});
+      h+='</div>';
+    }
+    h+=`<button id="add-note-btn" onclick="showNF()">+ Ajouter une note sur « ${sec.title} »</button>`;
+    h+=`<div id="note-form"><textarea id="note-text" rows="3" placeholder="Votre annotation..."></textarea><div style="display:flex;gap:6px;margin-top:6px"><button id="save-note" onclick="saveN()">Enregistrer</button><button id="cancel-note" onclick="hideNF()">Annuler</button></div></div>`;
+    mc.innerHTML=h;
+  } else {
+    let h='<div class="section-card"><h3 style="color:#92400e;border-bottom-color:#f59e0b">📝 Toutes mes notes</h3>';
+    if(a.length===0)h+='<div style="text-align:center;padding:30px;color:#94a3b8;font-size:13px">Aucune annotation. Sélectionnez une section pour en ajouter.</div>';
+    else a.forEach(x=>{h+=`<div class="ann-item"><div><div class="ann-section">${x.st}</div><div>${x.text}</div><div class="date">${x.date}</div></div><button class="del" onclick="delAnn(${x.id})">🗑</button></div>`});
+    h+='</div>';mc.innerHTML=h;
+  }
 }
 
-function hideNoteForm() {
-  document.getElementById("add-note-btn").style.display = "block";
-  document.getElementById("note-form").style.display = "none";
-  document.getElementById("note-text").value = "";
+function showNF(){document.getElementById("add-note-btn").style.display="none";document.getElementById("note-form").style.display="block";document.getElementById("note-text").focus()}
+function hideNF(){document.getElementById("add-note-btn").style.display="block";document.getElementById("note-form").style.display="none";document.getElementById("note-text").value=""}
+function saveN(){
+  const t=document.getElementById("note-text").value.trim();if(!t||!curF)return;
+  if(!ann[curF.id])ann[curF.id]=[];
+  ann[curF.id].push({id:Date.now(),si:curS>=0?curS:null,st:curS>=0?curF.sections[curS].title:"Général",text:t,date:new Date().toLocaleDateString("fr-FR")});
+  svA(ann);renderDetail();
 }
+function delAnn(id){if(!curF)return;ann[curF.id]=(ann[curF.id]||[]).filter(x=>x.id!==id);svA(ann);renderDetail()}
 
-function saveNote() {
-  const text = document.getElementById("note-text").value.trim();
-  if (!text || !currentFiche) return;
-  if (!annotations[currentFiche.id]) annotations[currentFiche.id] = [];
-  annotations[currentFiche.id].push({
-    id: Date.now(),
-    si: currentSection >= 0 ? currentSection : null,
-    st: currentSection >= 0 ? currentFiche.sections[currentSection].title : "Général",
-    text: text,
-    date: new Date().toLocaleDateString("fr-FR")
-  });
-  saveAnnotations(annotations);
-  renderDetail();
-}
-
-function delAnnotation(id) {
-  if (!currentFiche) return;
-  annotations[currentFiche.id] = (annotations[currentFiche.id] || []).filter(a => a.id !== id);
-  saveAnnotations(annotations);
-  renderDetail();
-}
-
-// INIT
-initFiches();
-renderList();
+initFiches();renderList();
 </script>
 </body>
 </html>
