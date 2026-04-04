@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OncoFiches</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293b;font-size:14px;line-height:1.5}
@@ -110,8 +109,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1e293
 .edit-form{margin-top:4px}
 .edit-form textarea{width:100%;border:1px solid #93c5fd;border-radius:6px;padding:6px;font-size:12px;resize:vertical;font-family:inherit}
 .edit-form button{font-size:11px;padding:4px 10px;border:none;border-radius:4px;cursor:pointer;margin-top:4px;margin-right:4px}
-.pdf-btn{background:var(--theme);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:6px;margin:12px 0}
-.pdf-btn:hover{opacity:.9}
+.pdf-btn{background:#f1f5f9;color:#475569;border:1.5px solid #cbd5e1;border-radius:8px;padding:10px 18px;font-size:13px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:6px;margin:12px 0}
+.pdf-btn:hover{background:#e2e8f0}
 .ann-section{font-size:10px;font-weight:700;color:#b45309;margin-bottom:2px}
 #add-note-btn{background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;color:#64748b;width:100%;text-align:left}
 #note-form{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:10px;display:none}
@@ -626,168 +625,95 @@ async function confirmEdit(id){
   }catch(e){alert('Erreur: '+e.message)}
 }
 
-// PDF Export
-async function exportPDF(){
+// PDF Export via print
+function exportPDF(){
   if(!curF)return;
   const secs=sections[curF.id]||[];
   const a=annotations.filter(x=>x.fiche_id===curF.id);
-  
   if(secs.length===0){alert('Aucune section à exporter.');return}
-  
-  // Show loading state on button
-  const btns=document.querySelectorAll('.pdf-btn');
-  btns.forEach(b=>{b.disabled=true;b.innerHTML='⏳ Génération du PDF...'});
-  
-  // Build complete HTML document for PDF
-  let html=`<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:11px;color:#1e293b;line-height:1.5">`;
-  
-  // Title page header
-  html+=`<div style="text-align:center;padding:20px 0 10px;border-bottom:3px solid ${curF.color};margin-bottom:20px">`;
-  html+=`<h1 style="color:${curF.color};font-size:24px;margin:0 0 6px">${curF.name}</h1>`;
-  html+=`<p style="color:#64748b;font-size:11px;margin:0">Mise à jour : ${curF.last_updated||'—'} · Exporté le ${new Date().toLocaleDateString('fr-FR')} · ${profile?.display_name||'Utilisateur'}${profile?.role?' · '+profile.role:''}</p>`;
-  html+=`</div>`;
-  
-  // Each section
+
+  const color=curF.color||'#2a4d8f';
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('fr-FR');
+  const timeStr=now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
+  let body='';
+
+  // Header
+  body+=`<div style="text-align:center;padding:16px 0 12px;border-bottom:3px solid ${color};margin-bottom:20px">`;
+  body+=`<h1 style="color:${color};font-size:22px;margin:0 0 4px">${curF.name}</h1>`;
+  body+=`<p style="color:#64748b;font-size:10px;margin:0">MAJ : ${curF.last_updated||'—'} · Exporté le ${dateStr} à ${timeStr} · ${profile?.display_name||'Utilisateur'}${profile?.role?' · '+profile.role:''}</p>`;
+  body+=`</div>`;
+
+  // Sections
   secs.forEach((sec,i)=>{
-    // Section title
-    html+=`<div style="margin-bottom:18px">`;
-    html+=`<h2 style="color:${curF.color};font-size:15px;border-bottom:2px solid ${curF.color};padding-bottom:5px;margin:0 0 10px">${sec.title}</h2>`;
-    
-    // Section content - inject inline styles for tables
-    let content = sec.html_content;
-    // Remove the h3 tags that duplicate the section title
-    content = content.replace(/<h3[^>]*>.*?<\/h3>/gi, '');
-    html+=`<div>${content}</div>`;
-    
-    // Notes for this section
+    body+=`<div style="margin-bottom:20px">`;
+    body+=`<h2 style="color:${color};font-size:14px;border-bottom:2px solid ${color};padding-bottom:5px;margin:0 0 10px">${sec.title}</h2>`;
+
+    let content=sec.html_content||'';
+    content=content.replace(/<h3[^>]*>.*?<\/h3>/gi,'');
+    body+=`<div>${content}</div>`;
+
     const secAnns=a.filter(x=>x.section_index===i);
     if(secAnns.length>0){
-      html+=`<div style="border:2px solid #fde68a;border-radius:8px;padding:10px 12px;background:#fefce8;margin:10px 0">`;
-      html+=`<div style="font-weight:700;color:#92400e;font-size:11px;margin-bottom:6px">📝 Mes notes sur cette section</div>`;
+      body+=`<div style="border:2px solid #fde68a;border-radius:8px;padding:10px 12px;background:#fefce8;margin:10px 0">`;
+      body+=`<div style="font-weight:700;color:#92400e;font-size:10px;margin-bottom:6px">📝 Mes notes</div>`;
       secAnns.forEach(ann=>{
-        html+=`<div style="padding:5px 0;border-bottom:1px solid #fde68a;font-size:11px;line-height:1.4">`;
-        html+=`<span>${ann.content}</span>`;
-        html+=`<span style="color:#a3a3a3;font-size:9px;margin-left:8px">— ${new Date(ann.created_at).toLocaleDateString('fr-FR')}</span>`;
-        html+=`</div>`;
+        body+=`<div style="padding:4px 0;border-bottom:1px solid #fde68a;font-size:10px;line-height:1.4">${ann.content} <span style="color:#a3a3a3;font-size:8px;margin-left:6px">— ${new Date(ann.created_at).toLocaleDateString('fr-FR')}</span></div>`;
       });
-      html+=`</div>`;
+      body+=`</div>`;
     }
-    
-    html+=`</div>`;
+    body+=`</div>`;
   });
-  
+
   // Footer
-  html+=`<div style="margin-top:30px;padding-top:10px;border-top:2px solid #e2e8f0;font-size:9px;color:#94a3b8;text-align:center">`;
-  html+=`OncoFiches · ${profile?.display_name||'Utilisateur'} · Exporté le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
-  html+=`</div>`;
-  
-  html+=`</div>`;
-  
-  // Create temporary container
-  const container=document.createElement('div');
-  container.innerHTML=html;
-  container.style.position='absolute';
-  container.style.left='-9999px';
-  container.style.top='0';
-  container.style.width='190mm';
-  container.style.background='#fff';
-  document.body.appendChild(container);
-  
-  // Apply inline styles for tables (PDF renderer needs inline styles)
-  container.querySelectorAll('table').forEach(t=>{
-    t.style.width='100%';
-    t.style.borderCollapse='collapse';
-    t.style.fontSize='10px';
-    t.style.marginTop='6px';
-    t.style.marginBottom='8px';
-  });
-  container.querySelectorAll('th, td').forEach(c=>{
-    c.style.border='1px solid #cbd5e1';
-    c.style.padding='5px 7px';
-    c.style.textAlign='left';
-    c.style.verticalAlign='top';
-    c.style.lineHeight='1.4';
-    c.style.fontSize='10px';
-  });
-  container.querySelectorAll('th').forEach(c=>{
-    c.style.backgroundColor='#e8edf4';
-    c.style.fontWeight='700';
-  });
-  // Style colored spans
-  container.querySelectorAll('.hp').forEach(c=>{c.style.color='#c0007a'});
-  container.querySelectorAll('.hg').forEach(c=>{c.style.color='#1a7a2e'});
-  // Style info/warning boxes
-  container.querySelectorAll('.I').forEach(c=>{
-    c.style.border='1.5px solid #3b82f6';c.style.borderRadius='6px';c.style.padding='8px 12px';c.style.background='#eff6ff';c.style.fontSize='11px';c.style.margin='8px 0';
-  });
-  container.querySelectorAll('.NW').forEach(c=>{
-    c.style.border='1.5px dashed #1a7a2e';c.style.borderRadius='6px';c.style.padding='8px 12px';c.style.background='#f0fdf4';c.style.fontSize='11px';c.style.margin='8px 0';
-  });
-  container.querySelectorAll('.W').forEach(c=>{
-    c.style.border='1.5px solid #dc2626';c.style.borderRadius='6px';c.style.padding='6px 10px';c.style.background='#fef2f2';c.style.fontSize='11px';c.style.textAlign='center';c.style.margin='8px 0';c.style.color='#991b1b';
-  });
-  container.querySelectorAll('.WA').forEach(c=>{
-    c.style.border='1.5px solid #d97706';c.style.borderRadius='6px';c.style.padding='6px 10px';c.style.background='#fffbeb';c.style.fontSize='11px';c.style.margin='6px 0';c.style.color='#92400e';
-  });
-  container.querySelectorAll('.NT').forEach(c=>{
-    c.style.fontSize='10px';c.style.color='#64748b';c.style.fontStyle='italic';c.style.margin='4px 0';
-  });
-  // Style algorithm boxes
-  container.querySelectorAll('.A').forEach(c=>{
-    c.style.border='2px solid '+curF.color;c.style.borderRadius='10px';c.style.padding='14px';c.style.margin='12px 0';c.style.background='#f8fafc';
-  });
-  container.querySelectorAll('.AT').forEach(c=>{
-    c.style.textAlign='center';c.style.fontWeight='800';c.style.fontSize='13px';c.style.color=curF.color;c.style.borderBottom='2px solid '+curF.color;c.style.paddingBottom='7px';c.style.marginBottom='10px';
-  });
-  container.querySelectorAll('.N').forEach(c=>{
-    c.style.border='2px solid '+curF.color;c.style.borderRadius='8px';c.style.padding='8px 12px';c.style.textAlign='center';c.style.fontSize='10px';c.style.lineHeight='1.4';c.style.background='#fff';c.style.display='inline-block';
-  });
-  container.querySelectorAll('.Nr').forEach(c=>{c.style.background='#dbeafe';c.style.borderColor='#2563eb'});
-  container.querySelectorAll('.No').forEach(c=>{c.style.background='#fef9c3';c.style.borderColor='#ca8a04'});
-  container.querySelectorAll('.Nk').forEach(c=>{c.style.background='#dcfce7';c.style.borderColor='#16a34a'});
-  container.querySelectorAll('.Nx').forEach(c=>{c.style.background='#fee2e2';c.style.borderColor='#dc2626'});
-  container.querySelectorAll('.AR').forEach(c=>{
-    c.style.textAlign='center';c.style.fontSize='18px';c.style.color=curF.color;c.style.margin='4px 0';
-  });
-  container.querySelectorAll('.R').forEach(c=>{
-    c.style.display='flex';c.style.gap='8px';c.style.justifyContent='center';c.style.flexWrap='wrap';c.style.margin='8px 0';
-  });
-  container.querySelectorAll('.CN').forEach(c=>{
-    c.style.display='flex';c.style.flexDirection='column';c.style.alignItems='center';
-  });
-  container.querySelectorAll('.BL').forEach(c=>{
-    c.style.fontSize='9px';c.style.fontWeight='700';c.style.color='#475569';c.style.textAlign='center';c.style.marginBottom='4px';
-  });
-  container.querySelectorAll('h4').forEach(c=>{
-    c.style.margin='12px 0 6px';c.style.fontSize='12px';c.style.color='#334155';c.style.fontWeight='700';
-  });
-  container.querySelectorAll('ul').forEach(c=>{c.style.margin='2px 0 2px 16px';c.style.padding='0'});
-  container.querySelectorAll('li').forEach(c=>{c.style.marginBottom='2px'});
-  // Style header cells with dark background
-  container.querySelectorAll('.T-hdr th, .T-hdr td').forEach(c=>{
-    c.style.backgroundColor='#1a365d';c.style.color='#ffffff';
-  });
-  
-  const filename = curF.name.replace(/[^a-zA-Zéèêëàâäùûüôöïîç0-9 ]/g,'').replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString('fr-FR').replace(/\//g,'-') + '.pdf';
-  
-  try{
-    await html2pdf().set({
-      margin:[8,8,8,8],
-      filename:filename,
-      image:{type:'jpeg',quality:0.98},
-      html2canvas:{scale:2,useCORS:true,letterRendering:true,logging:false},
-      jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-      pagebreak:{mode:['avoid-all','css','legacy']}
-    }).from(container).save();
-  }catch(e){
-    console.error('PDF error:',e);
-    alert('Erreur lors de l\'export PDF : '+e.message);
-  }
-  
-  document.body.removeChild(container);
-  
-  // Restore buttons
-  btns.forEach(b=>{b.disabled=false;b.innerHTML='📄 Exporter en PDF'});
+  body+=`<div style="margin-top:24px;padding-top:8px;border-top:2px solid #e2e8f0;font-size:8px;color:#94a3b8;text-align:center">OncoFiches · ${profile?.display_name||'Utilisateur'} · ${dateStr} ${timeStr}</div>`;
+
+  // Open print window
+  const win=window.open('','_blank','width=900,height=700');
+  if(!win){alert('Veuillez autoriser les popups pour exporter en PDF.');return}
+
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${curF.name}</title><style>
+@media print{@page{margin:12mm 10mm;size:A4}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:11px;color:#1e293b;line-height:1.5;padding:10px}
+h1,h2,h3,h4{margin:0}
+h4{margin:10px 0 5px;font-size:11px;color:#334155}
+table{width:100%;border-collapse:collapse;font-size:10px;margin:6px 0}
+th,td{border:1px solid #cbd5e1;padding:5px 7px;text-align:left;vertical-align:top;line-height:1.4}
+th{background:#e8edf4;font-weight:700;font-size:9.5px}
+ul{margin:2px 0 2px 14px;padding:0}
+li{margin-bottom:2px}
+.hp{color:#c0007a}
+.hg{color:#1a7a2e}
+.T-hdr{background:#1a365d!important}
+.T-hdr th,.T-hdr td{background:#1a365d!important;color:#fff!important}
+.NT{font-size:9px;color:#64748b;font-style:italic;margin:3px 0}
+.I{border:1.5px solid #3b82f6;border-radius:6px;padding:7px 10px;background:#eff6ff;font-size:10px;margin:7px 0}
+.NW{border:1.5px dashed #1a7a2e;border-radius:6px;padding:7px 10px;background:#f0fdf4;font-size:10px;margin:7px 0}
+.W{border:1.5px solid #dc2626;border-radius:6px;padding:5px 8px;background:#fef2f2;font-size:10px;text-align:center;margin:7px 0;color:#991b1b}
+.WA{border:1.5px solid #d97706;border-radius:6px;padding:5px 8px;background:#fffbeb;font-size:10px;margin:6px 0;color:#92400e}
+.A{border:2px solid ${color};border-radius:8px;padding:12px;margin:10px 0;background:#f8fafc}
+.AT{text-align:center;font-weight:800;font-size:12px;color:${color};border-bottom:2px solid ${color};padding-bottom:6px;margin-bottom:10px}
+.N{border:2px solid ${color};border-radius:6px;padding:7px 10px;text-align:center;font-size:9.5px;line-height:1.3;background:#fff;display:inline-block;max-width:220px;vertical-align:top}
+.Nr{background:#dbeafe;border-color:#2563eb}.No{background:#fef9c3;border-color:#ca8a04}
+.Nk{background:#dcfce7;border-color:#16a34a}.Nx{background:#fee2e2;border-color:#dc2626}
+.AR{text-align:center;font-size:16px;color:${color};margin:3px 0}
+.R{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.CN{display:flex;flex-direction:column;align-items:center}
+.BL{font-size:9px;font-weight:700;color:#475569;text-align:center;margin-bottom:3px}
+.no-print{display:none!important}
+</style></head><body>${body}</body></html>`);
+
+  win.document.close();
+
+  // Wait for content to render, then trigger print
+  setTimeout(()=>{
+    win.focus();
+    win.print();
+    // Close after print dialog
+    setTimeout(()=>{win.close()},1000);
+  },500);
 }
 
 function showNF(){document.getElementById('add-note-btn').style.display='none';document.getElementById('note-form').style.display='block';document.getElementById('note-text').focus()}
