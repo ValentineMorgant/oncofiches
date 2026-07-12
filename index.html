@@ -301,10 +301,8 @@ async function checkSession(){
 }
 
 sb.auth.onAuthStateChange(async(event,session)=>{
-  if((event==='SIGNED_IN'||event==='TOKEN_REFRESHED')&&session&&session.user){
-    user=session.user;
-    if(!appInitialized)await initApp();
-  }
+  // Le login/signup/boot gèrent initApp eux-mêmes avec le bon token.
+  // On ne garde ici que la déconnexion.
   if(event==='SIGNED_OUT'){
     user=null;profile=null;appInitialized=false;
     document.getElementById('app').style.display='none';
