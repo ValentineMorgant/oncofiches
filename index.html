@@ -324,6 +324,28 @@ function showAuthMsg(msg,ok){
   document.getElementById('auth-message').innerHTML=`<div class="auth-msg ${ok?'auth-msg-ok':'auth-msg-err'}">${msg}</div>`;
 }
 
+// Chemin unifié : on rafraîchit toujours le token via l'API REST avant d'initialiser,
+// exactement comme boot(). C'est ce token rafraîchi qui fait remonter les annotations (RLS).
+async function refreshAndInit(refresh_token){
+  const res = await fetch(SUPA_URL+'/auth/v1/token?grant_type=refresh_token',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+    body:JSON.stringify({refresh_token})
+  });
+  if(!res.ok){
+    const err=await res.json().catch(()=>({}));
+    console.log('refreshAndInit failed:',err.error_description||err.error||res.status);
+    return false;
+  }
+  const data=await res.json();
+  saveSession({access_token:data.access_token,refresh_token:data.refresh_token,user:data.user});
+  sb.auth.setSession({access_token:data.access_token,refresh_token:data.refresh_token}).catch(()=>{});
+  user=data.user;
+  appInitialized=true;
+  await initApp();
+  return true;
+}
+
 async function loginGoogle(){
   const{data,error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.origin+window.location.pathname}});
   if(error)showAuthMsg(error.message,false);
@@ -339,9 +361,11 @@ async function doLogin(){
     else showAuthMsg(error.message,false);
   } else if(data.session){
     saveSession(data.session);
-    user=data.session.user;
-    appInitialized=true;
-    await initApp();
+    const ok=await refreshAndInit(data.session.refresh_token);
+    if(!ok){
+      // fallback : on initialise avec la session brute si le refresh échoue
+      user=data.session.user;appInitialized=true;await initApp();
+    }
   }
 }
 
@@ -355,21 +379,30 @@ async function doSignup(){
   if(error)showAuthMsg(error.message,false);
   else if(data.session){
     saveSession(data.session);
-    user=data.session.user;
-    appInitialized=true;
-    await initApp();
+    const ok=await refreshAndInit(data.session.refresh_token);
+    if(!ok){
+      user=data.session.user;appInitialized=true;await initApp();
+    }
   } else {
     showAuthMsg('✅ Compte créé ! Vérifiez votre email pour confirmer.',true);
   }
 }
 
 async function logout(){
-  await sb.auth.signOut();
+  await sb.auth.signOut().catch(()=>{});
+  clearSession();                              // purge le refresh_token du localStorage
   user=null;profile=null;appInitialized=false;
-  cancers=[];sections={};annotations=[];
+  cancers=[];sections={};annotations=[];curF=null;curS=0;
+  applyTheme('#2a4d8f');                        // remet la couleur par défaut
+  document.getElementById('user-name').textContent='...';
+  document.getElementById('user-role').textContent='';
+  document.getElementById('user-avatar').textContent='V';
   document.getElementById('app').style.display='none';
   document.getElementById('auth-page').style.display='flex';
   document.getElementById('auth-message').innerHTML='';
+  // réinitialise les champs de connexion
+  const le=document.getElementById('login-email');if(le)le.value='';
+  const lp=document.getElementById('login-password');if(lp)lp.value='';
 }
 
 // INIT APP
@@ -386,6 +419,7 @@ async function initApp(){
   // Get current access token
   const saved = getSavedSession();
   const token = saved?.access_token;
+  console.log('initApp token present?', !!token, 'user.id=', user?.id);
 
   // Helper: fetch from Supabase REST API directly
   async function query(table, params=''){
@@ -465,7 +499,9 @@ function selectColor(c){
 async function saveProfile(){
   profile.display_name=document.getElementById('prof-name').value.trim()||user.email.split('@')[0];
   profile.role=document.getElementById('prof-role').value;
-  await sb.from('profiles').update({display_name:profile.display_name,role:profile.role,theme_color:profile.theme_color}).eq('id',user.id);
+  const saved=getSavedSession();
+  const token=saved?.access_token;
+  await fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+user.id,{method:'PATCH',headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(token||SUPA_KEY),'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({display_name:profile.display_name,role:profile.role,theme_color:profile.theme_color})}).catch(()=>{});
   applyTheme(profile.theme_color);
   document.getElementById('user-name').textContent=profile.display_name;
   document.getElementById('user-role').textContent=profile.role;
@@ -643,12 +679,6 @@ async function exportPDF(){
   const now=new Date();
   const dateStr=now.toLocaleDateString('fr-FR');
   const timeStr=now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-
-  // Show loading overlay
-  const overlay=document.createElement('div');
-  overlay.id='pdf-overlay';
-  overlay.innerHTML=`<div class="msg"><div class="spinner"></div>Génération du PDF en cours...<br><span style="font-size:11px;color:#94a3b8">Veuillez patienter quelques secondes</span></div>`;
-  document.body.appendChild(overlay);
 
   // Build HTML
   let html='';
