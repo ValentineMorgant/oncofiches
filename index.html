@@ -342,7 +342,7 @@ async function refreshAndInit(refresh_token){
   sb.auth.setSession({access_token:data.access_token,refresh_token:data.refresh_token}).catch(()=>{});
   user=data.user;
   appInitialized=true;
-  await initApp();
+  await initApp(data.access_token);
   return true;
 }
 
@@ -406,7 +406,7 @@ async function logout(){
 }
 
 // INIT APP
-async function initApp(){
+async function initApp(tokenOverride){
   if(appInitialized && cancers.length > 0) return; // already loaded
   document.getElementById('auth-page').style.display='none';
   document.getElementById('app').style.display='block';
@@ -418,7 +418,7 @@ async function initApp(){
 
   // Get current access token
   const saved = getSavedSession();
-  const token = saved?.access_token;
+  const token = tokenOverride || saved?.access_token;
   console.log('initApp token present?', !!token, 'user.id=', user?.id);
 
   // Helper: fetch from Supabase REST API directly
@@ -866,7 +866,7 @@ async function boot(){
       
       user = data.user;
       appInitialized = true;
-      await initApp();
+      await initApp(data.access_token);
       return;
     } else {
       const err = await res.json().catch(()=>({}));
